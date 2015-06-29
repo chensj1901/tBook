@@ -1,0 +1,8 @@
+platform :ios, '6.1'
+pod 'AFNetworking', '~> 2.4.1'
+pod 'FMDB', '~> 2.4'
+pod 'EGOImageLoading', '~> 0.0.1'
+pod 'FXBlurView', '~> 1.6.3'
+pod 'iOS-Hierarchy-Viewer', '~> 1.4.7'
+pod 'MMProgressHUD', '~> 0.3.1'
+#pod 'KYCircularProgress', '~> 0.1.0'
