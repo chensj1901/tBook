@@ -23,9 +23,6 @@
 #import "UIViewController+SJViewController.h"
 #import "UITextField+SJTextField.h"
 
-#define WIDTH [UIScreen mainScreen].bounds.size.width
-
-#define HEIGHT [UIScreen mainScreen].bounds.size.height
 
 #define SELF_WIDTH self.bounds.size.width
 

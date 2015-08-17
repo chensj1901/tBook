@@ -106,11 +106,6 @@
 		33C2B4351A2316C900054135 /* SJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C2B4341A2316C900054135 /* SJAppDelegate.m */; };
 		33C2B43B1A2316C900054135 /* SJIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C2B43A1A2316C900054135 /* SJIndexViewController.m */; };
 		33C2B43D1A2316C900054135 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33C2B43C1A2316C900054135 /* Images.xcassets */; };
-		33C2B4441A2316CA00054135 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C2B4431A2316C900054135 /* XCTest.framework */; };
-		33C2B4451A2316CA00054135 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C2B4241A2316C900054135 /* Foundation.framework */; };
-		33C2B4461A2316CA00054135 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C2B4281A2316C900054135 /* UIKit.framework */; };
-		33C2B44E1A2316CA00054135 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 33C2B44C1A2316CA00054135 /* InfoPlist.strings */; };
-		33C2B4501A2316CA00054135 /* tBookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C2B44F1A2316CA00054135 /* tBookTests.m */; };
 		33C5146E1A2318DC00D417FC /* SJIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C5146D1A2318DC00D417FC /* SJIndexView.m */; };
 		33CF2E431A2EF16F00B270BA /* SJBookChapterReadRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CF2E421A2EF16F00B270BA /* SJBookChapterReadRecode.m */; };
 		33CF2E461A2EF90800B270BA /* NSArray+SJArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CF2E451A2EF90800B270BA /* NSArray+SJArray.m */; };
@@ -131,16 +126,6 @@
 		33FA079E1A271DA6009E4F8F /* SJBookDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FA079D1A271DA6009E4F8F /* SJBookDetailView.m */; };
 		C54ADE6F15D033B1B2825A3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E427105FE2B4A1C318836D99 /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		33C2B4471A2316CA00054135 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 33C2B4191A2316C900054135 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 33C2B4201A2316C900054135;
-			remoteInfo = tBook;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		04521D6D1A6186EB00672977 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iflyMSC.framework; sourceTree = "<group>"; };
@@ -305,11 +290,7 @@
 		33C2B4391A2316C900054135 /* SJIndexViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJIndexViewController.h; sourceTree = "<group>"; };
 		33C2B43A1A2316C900054135 /* SJIndexViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJIndexViewController.m; sourceTree = "<group>"; };
 		33C2B43C1A2316C900054135 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		33C2B4421A2316C900054135 /* tBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		33C2B4431A2316C900054135 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		33C2B44B1A2316CA00054135 /* tBookTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tBookTests-Info.plist"; sourceTree = "<group>"; };
-		33C2B44D1A2316CA00054135 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		33C2B44F1A2316CA00054135 /* tBookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tBookTests.m; sourceTree = "<group>"; };
 		33C5146C1A2318DC00D417FC /* SJIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJIndexView.h; sourceTree = "<group>"; };
 		33C5146D1A2318DC00D417FC /* SJIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJIndexView.m; sourceTree = "<group>"; };
 		33CF2E411A2EF16F00B270BA /* SJBookChapterReadRecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBookChapterReadRecode.h; sourceTree = "<group>"; };
@@ -363,16 +344,6 @@
 				33C2B4251A2316C900054135 /* Foundation.framework in Frameworks */,
 				C54ADE6F15D033B1B2825A3F /* libPods.a in Frameworks */,
 				04521D721A6186EB00672977 /* libSunFlower.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		33C2B43F1A2316C900054135 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				33C2B4441A2316CA00054135 /* XCTest.framework in Frameworks */,
-				33C2B4461A2316CA00054135 /* UIKit.framework in Frameworks */,
-				33C2B4451A2316CA00054135 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,7 +682,6 @@
 			isa = PBXGroup;
 			children = (
 				33C2B42A1A2316C900054135 /* tBook */,
-				33C2B4491A2316CA00054135 /* tBookTests */,
 				33C2B4231A2316C900054135 /* Frameworks */,
 				33C2B4221A2316C900054135 /* Products */,
 				491BDDF94E4A3750DC4C42D6 /* Pods */,
@@ -722,7 +692,6 @@
 			isa = PBXGroup;
 			children = (
 				33C2B4211A2316C900054135 /* tBook.app */,
-				33C2B4421A2316C900054135 /* tBookTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -791,24 +760,6 @@
 				33C2B42D1A2316C900054135 /* InfoPlist.strings */,
 				33C2B4301A2316C900054135 /* main.m */,
 				33C2B4321A2316C900054135 /* tBook-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		33C2B4491A2316CA00054135 /* tBookTests */ = {
-			isa = PBXGroup;
-			children = (
-				33C2B44F1A2316CA00054135 /* tBookTests.m */,
-				33C2B44A1A2316CA00054135 /* Supporting Files */,
-			);
-			path = tBookTests;
-			sourceTree = "<group>";
-		};
-		33C2B44A1A2316CA00054135 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				33C2B44B1A2316CA00054135 /* tBookTests-Info.plist */,
-				33C2B44C1A2316CA00054135 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -903,24 +854,6 @@
 			productReference = 33C2B4211A2316C900054135 /* tBook.app */;
 			productType = "com.apple.product-type.application";
 		};
-		33C2B4411A2316C900054135 /* tBookTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 33C2B4561A2316CA00054135 /* Build configuration list for PBXNativeTarget "tBookTests" */;
-			buildPhases = (
-				33C2B43E1A2316C900054135 /* Sources */,
-				33C2B43F1A2316C900054135 /* Frameworks */,
-				33C2B4401A2316C900054135 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				33C2B4481A2316CA00054135 /* PBXTargetDependency */,
-			);
-			name = tBookTests;
-			productName = tBookTests;
-			productReference = 33C2B4421A2316C900054135 /* tBookTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -939,9 +872,6 @@
 							};
 						};
 					};
-					33C2B4411A2316C900054135 = {
-						TestTargetID = 33C2B4201A2316C900054135;
-					};
 				};
 			};
 			buildConfigurationList = 33C2B41C1A2316C900054135 /* Build configuration list for PBXProject "tBook" */;
@@ -958,7 +888,6 @@
 			projectRoot = "";
 			targets = (
 				33C2B4201A2316C900054135 /* tBook */,
-				33C2B4411A2316C900054135 /* tBookTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1004,14 +933,6 @@
 				336B8E871A231D6500685FA3 /* whiteArrow.png in Resources */,
 				33F2EDC91A88EA33000905E7 /* read_msg@2x.png in Resources */,
 				33C2B42F1A2316C900054135 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		33C2B4401A2316C900054135 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				33C2B44E1A2316CA00054135 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1125,37 +1046,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		33C2B43E1A2316C900054135 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				33C2B4501A2316CA00054135 /* tBookTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		33C2B4481A2316CA00054135 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 33C2B4201A2316C900054135 /* tBook */;
-			targetProxy = 33C2B4471A2316CA00054135 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		33C2B42D1A2316C900054135 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				33C2B42E1A2316C900054135 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		33C2B44C1A2316CA00054135 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				33C2B44D1A2316CA00054135 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1237,6 +1134,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 11599E8D83371A828EEE3483 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1247,44 +1145,17 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tBook/tBook-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
-					"\"${PODS_ROOT}/Headers/Public/EGOCache\"",
-					"\"${PODS_ROOT}/Headers/Public/EGOImageLoading\"",
-					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "tBook/tBook-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/tBook/lib/sunflower",
 				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-l\"Pods-AFNetworking\"",
-					"-l\"Pods-EGOCache\"",
-					"-l\"Pods-EGOImageLoading\"",
-					"-l\"Pods-FMDB\"",
-					"-l\"Pods-FXBlurView\"",
-					"-l\"Pods-iOS-Hierarchy-Viewer\"",
-					"-l\"sqlite3\"",
-					"-framework",
-					"\"Accelerate\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"MobileCoreServices\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"$(inherited)",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1294,6 +1165,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 64224DF8C71C729A1DD7B4F5 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1304,86 +1176,19 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tBook/tBook-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
-					"\"${PODS_ROOT}/Headers/Public/EGOCache\"",
-					"\"${PODS_ROOT}/Headers/Public/EGOImageLoading\"",
-					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "tBook/tBook-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/tBook/lib/sunflower",
 				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-l\"Pods-AFNetworking\"",
-					"-l\"Pods-EGOCache\"",
-					"-l\"Pods-EGOImageLoading\"",
-					"-l\"Pods-FMDB\"",
-					"-l\"Pods-FXBlurView\"",
-					"-l\"Pods-iOS-Hierarchy-Viewer\"",
-					"-l\"sqlite3\"",
-					"-framework",
-					"\"Accelerate\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"MobileCoreServices\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"$(inherited)",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		33C2B4571A2316CA00054135 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/tBook.app/tBook";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tBook/tBook-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "tBookTests/tBookTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		33C2B4581A2316CA00054135 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/tBook.app/tBook";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tBook/tBook-Prefix.pch";
-				INFOPLIST_FILE = "tBookTests/tBookTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1404,15 +1209,6 @@
 			buildConfigurations = (
 				33C2B4541A2316CA00054135 /* Debug */,
 				33C2B4551A2316CA00054135 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		33C2B4561A2316CA00054135 /* Build configuration list for PBXNativeTarget "tBookTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				33C2B4571A2316CA00054135 /* Debug */,
-				33C2B4581A2316CA00054135 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

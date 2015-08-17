@@ -14,6 +14,10 @@
 #define GAME_COL_COUNT 9
 #define GAME_BLOCK_WIDTH 35
 
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+
 #define ADS_APPKEY @"e95e1316ddee452ba8de39aa5ec6ca8e"
 #define YUNFEI_APPID @"appid=5477dbc5"
 

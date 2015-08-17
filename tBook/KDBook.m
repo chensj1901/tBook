@@ -268,7 +268,7 @@
 		bookIndex = -1;
         bookPageIndex = 0;
 		textFont = [UIFont systemFontOfSize:16];
-	    pageSize = CGSizeMake(320, 460);
+	    pageSize = CGSizeMake(WIDTH, HEIGHT);
         self.isLoading=YES;
 	}
 	return self;

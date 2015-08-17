@@ -13,9 +13,7 @@
 #import "SJBookChapterReadRecode.h"
 #import "SJBookChapterRecode.h"
 
-#ifdef DEBUG
-#import <iOSHierarchyViewer.h>
-#endif
+
 
 @implementation SJAppDelegate
 
@@ -28,10 +26,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#ifdef DEBUG
-    [iOSHierarchyViewer start];
-#endif
-    
+
     // Override point for customization after application launch.
     [self initDB];
     
