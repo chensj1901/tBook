@@ -14,13 +14,13 @@
 #import "SJHTTPRequestOperationManager.h"
 #import "SJBookURLRequest.h"
 #import "SJBookChapterRecode.h"
+#import "SJSettingRecode.h"
 
 @interface SJBookService ()
 
 @end
 
 @implementation SJBookService
-
 -(void)loadFirstBooksWithKeyWord:(NSString*)keyWorld success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail{
     self.searchKeyPageId=1;
     [SJBookURLRequest apiLoadFirstBooksWithKeyWord:keyWorld pageId:self.searchKeyPageId success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -102,104 +102,92 @@
     }];
 }
 
--(NSArray*)getPagesOfString:(NSString*)cache withFont:(UIFont*)font inRect:(CGRect)r{
-    //返回一个数组, 包含每一页的字符串开始点和长度(NSRange)
-    NSMutableArray *ranges=[NSMutableArray array];
-    //断行类型
-    UILineBreakMode lineBreakMode=UILineBreakModeCharacterWrap;
-    //显示字体的行高
-    CGFloat lineHeight=[@"Sample样本" sizeWithFont:font].height;
-    NSInteger maxLine=floor(r.size.height/lineHeight);
-    NSInteger totalLines=0;
-    NSLog(@"Max Line Per Page: %ld (%.2f/%.2f)",(long)maxLine,r.size.height,lineHeight);
-    NSString *lastParaLeft=nil;
-    NSRange range=NSMakeRange(0, 0);
-    //把字符串按段落分开, 提高解析效率
-    NSArray *paragraphs=[cache componentsSeparatedByString:@"n"];
-    for (int p=0;p< [paragraphs count];p++) {
-        NSString *para;
-        if (lastParaLeft!=nil) {
-            //上一页完成后剩下的内容继续计算
-            para=lastParaLeft;
-            lastParaLeft=nil;
-        }else {
-            para=[paragraphs objectAtIndex:p];
-            if (p<[paragraphs count]-1)
-                para=[para stringByAppendingString:@"n"]; //刚才分段去掉了一个换行,现在换给它
-        }
-        CGSize paraSize=[para sizeWithFont:font
-                         constrainedToSize:r.size
-                             lineBreakMode:lineBreakMode];
-        NSInteger paraLines=floor(paraSize.height/lineHeight);
-        if (totalLines+paraLines<maxLine) {
-            totalLines+=paraLines;
-            range.length+=[para length];
-            if (p==[paragraphs count]-1) {
-                //到了文章的结尾 这一页也算
-                [ranges addObject:[NSValue valueWithRange:range]];
-                //IMILog(@”===========Page Over=============”);
-            }
-        }else if (totalLines+paraLines==maxLine) {
-            //很幸运, 刚好一段结束,本页也结束, 有这个判断会提高一定的效率
-            range.length+=[para length];
-            [ranges addObject:[NSValue valueWithRange:range]];
-            range.location+=range.length;
-            range.length=0;
-            totalLines=0;
-            //IMILog(@”===========Page Over=============”);
-        }else{
-            //重头戏, 页结束时候本段文字还有剩余
-            NSInteger lineLeft=maxLine-totalLines;
-            CGSize tmpSize;
-            NSInteger i;
-            for (i=1; i<[para length]; i++) {
-                //逐字判断是否达到了本页最大容量
-                NSString *tmp=[para substringToIndex:i];
-                tmpSize=[tmp sizeWithFont:font  
-                        constrainedToSize:r.size  
-                            lineBreakMode:lineBreakMode];  
-                int nowLine=floor(tmpSize.height/lineHeight);  
-                if (lineLeft<nowLine) {  
-                    //超出容量,跳出, 字符要回退一个, 应为当前字符已经超出范围了  
-                    lastParaLeft=[para substringFromIndex:i-1];  
-                    break;  
-                }  
-            }  
-            range.length+=i-1;  
-            [ranges addObject:[NSValue valueWithRange:range]];  
-            range.location+=range.length;  
-            range.length=0;  
-            totalLines=0;  
-            p--;
-            //IMILog(@”===========Page Over=============”);  
-        }  
+-(NSArray*)getPagesOfString:(NSString*)text withFont:(UIFont*)font inRect:(CGRect)r{
+    NSMutableArray *arr=[NSMutableArray new];
+    unsigned long long offset = 0;
+    while (YES) {
+        unsigned long long start = offset;
+        unsigned long long fileSize = text.length;
         
-    }  
-    return [NSArray arrayWithArray:ranges];  
+        NSUInteger MaxWidth = r.size.width, MaxHeigth = r.size.height;
+        
+        BOOL isEndOfFile = NO;
+        NSUInteger length = 1000;
+        NSMutableString *labelStr = [[NSMutableString alloc] init];
+        do{
+                if (offset+length > fileSize&&offset<fileSize) {
+                    length=(NSUInteger)(fileSize-offset);
+                }else if ((offset+length) > fileSize) {
+                    offset = fileSize;
+                    length = 0;
+                    isEndOfFile = YES;
+                }
+            
+                NSString *iStr=[text substringWithRange:NSMakeRange(offset, length)];
+                if (iStr.length) {
+                    if (iStr ) {
+                        NSString *oStr = [NSString stringWithFormat:@"%@%@",labelStr,iStr];
+                        
+                        CGSize labelSize=[oStr sizeWithFont:font
+                                          constrainedToSize:CGSizeMake(MaxWidth,8888)
+                                              lineBreakMode:NSLineBreakByWordWrapping];
+                        //                    NSLog(@"%f",labelSize.height);
+                        if (labelSize.height-MaxHeigth > 0 && length != 1) {
+                            //						if (length <= 5) {
+                            //							length = 1;
+                            //						}else {
+                            length = length/(2);
+                            //						}
+                        }else if (labelSize.height > MaxHeigth && length == 1) {
+                            offset = offset-length;
+                            isEndOfFile = YES;
+                        }else if(labelSize.height <= MaxHeigth ) {
+                            [labelStr appendString:iStr];
+                            offset = length+offset;
+                        }
+                    }
+                }
+            
+            if (offset >= fileSize) {
+                isEndOfFile = YES;
+            }		
+        }while (!isEndOfFile);
+        
+        NSRange range=NSMakeRange(start, offset-start);
+        [arr addObject:[NSValue valueWithRange:range]];
+        if (offset >= fileSize) {
+            break;
+        }
+    }
+    
+    return arr;
 }
 
 -(void)loadContentWithChapter:(SJBookChapter *)chapter book:(SJBook *)book success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail{
     [SJBookURLRequest apiLoadContentWithChapter:chapter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSString *text=[[[responseObject objectForKey:@"items"]objectAtIndex:0] objectForKey:@"content"];
+        NSString *text=[responseObject objectForKey:@"content"];
         
-        NSArray *pages=[self getPagesOfString:text withFont:[UIFont boldSystemFontOfSize:12] inRect:CGRectMake(0, 0, WIDTH, HEIGHT)];
+        NSArray *pages=[self getPagesOfString:text withFont:[UIFont systemFontOfSize:[[SJSettingRecode getSet:@"textFont"]intValue]] inRect:CGRectMake(0, 0, WIDTH-20, HEIGHT-28)];
         
         [[text dataUsingEncoding:NSUTF8StringEncoding]writeToFile:chapter.filePathWithThisChapter atomically:YES];
-        __weak SJBookService*__self=self;
+        
+        [chapter.pageArr removeAllObjects];
+        [chapter.pageArr addObjectsFromArray:pages];
+//        __weak SJBookService*__self=self;
         
         
-        self.book=[[KDBook alloc]initWithBook:chapter.filePathWithThisChapter successBlock:^{
-            chapter.kdBook=__self.book;
+//        self.book=[[KDBook alloc]initWithBook:chapter.filePathWithThisChapter successBlock:^{
+//            chapter.kdBook=__self.book;
             if (success) {
                 success();
             }
-        }];
-        self.book.bookChapterName=chapter.chapterName;
-        
-        SJReadCell *sizeTestCell=[[SJReadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        self.book.pageSize =sizeTestCell.bookContentLabel.bounds.size; //bookLabel.frame.size;
-        self.book.textFont = sizeTestCell.bookContentLabel.font;
+//        }];
+//        self.book.bookChapterName=chapter.chapterName;
+//        
+//        SJReadCell *sizeTestCell=[[SJReadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+//        self.book.pageSize =sizeTestCell.bookContentLabel.bounds.size; //bookLabel.frame.size;
+//        self.book.textFont = sizeTestCell.bookContentLabel.font;
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -287,9 +275,10 @@
         
         NSInteger index=0;
         for (NSDictionary *dic in [responseObject objectForKey:@"items"]) {
-            SJBookChapter *book=[[SJBookChapter alloc]initWithRemoteDictionary:dic];
-            book._id=index;
-            [self.bookChapters addObject:book];
+            SJBookChapter *bookChapter=[[SJBookChapter alloc]initWithRemoteDictionary:dic];
+            bookChapter.gid=book.gid;
+            bookChapter._id=index;
+            [self.bookChapters addObject:bookChapter];
             index++;
         }
         

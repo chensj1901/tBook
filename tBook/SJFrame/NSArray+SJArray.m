@@ -64,4 +64,20 @@
     }
     return nil;
 }
+
+
+-(NSUInteger)getObjectIndexWithBlock: (BOOL(^)(id obj))block{
+    if (block) {
+        NSUInteger result=-1;
+        for (NSUInteger i=0;i<[self count];i++) {
+            id objE=[self safeObjectAtIndex:i];
+            if (block(objE)) {
+                result=i;
+                break;
+            }
+        }
+        return result;
+    }
+    return -1;
+}
 @end

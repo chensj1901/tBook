@@ -64,11 +64,13 @@
 /**
  *	@brief 
  */
-@property(nonatomic,readonly)NSInteger gid;
+@property(nonatomic)NSInteger gid;
 
 @property(nonatomic)NSInteger _id;
 
 @property(nonatomic)NSInteger pageIndex;
+
+@property(nonatomic)NSMutableArray *pageArr;
 
 @property(nonatomic)KDBook *kdBook;
 

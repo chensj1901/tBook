@@ -48,4 +48,11 @@
    NSString *filePath=[NSFileManager getTempFilePath:[NSString stringWithFormat:@"%ld$$%@$$%@.txt",(long)self.nid,self.site,self.chapterName]];
     return filePath;
 }
+
+-(NSMutableArray *)pageArr{
+    if(!_pageArr){
+        _pageArr=[[NSMutableArray alloc]init];
+    }
+    return _pageArr;
+}
 @end

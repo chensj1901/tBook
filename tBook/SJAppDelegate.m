@@ -12,16 +12,17 @@
 #import "SJBookRecode.h"
 #import "SJBookChapterReadRecode.h"
 #import "SJBookChapterRecode.h"
-
-
+#import "SJSettingRecode.h"
 
 @implementation SJAppDelegate
 
 -(void)initDB{
-    
+    [SJSettingRecode initDB];
     [SJBookRecode initDB];
     [SJBookChapterReadRecode initDB];
     [SJBookChapterRecode initDB];
+    
+    [SJSettingRecode set:@"textFont" value:@"14"];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

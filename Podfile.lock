@@ -1,4 +1,5 @@
 PODS:
+  - AdsMoGo-iOS-Lib (1.0.0)
   - AFNetworking (2.4.1):
     - AFNetworking/NSURLConnection (= 2.4.1)
     - AFNetworking/NSURLSession (= 2.4.1)
@@ -29,24 +30,32 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - FXBlurView (1.6.3)
-  - iOS-Hierarchy-Viewer (1.4.7)
   - MMProgressHUD (0.3.1)
 
 DEPENDENCIES:
+  - AdsMoGo-iOS-Lib (from `https://github.com/chensj1901/AdsMoGo-iOS-Lib.git`)
   - AFNetworking (~> 2.4.1)
   - EGOImageLoading (~> 0.0.1)
   - FMDB (~> 2.4)
   - FXBlurView (~> 1.6.3)
-  - iOS-Hierarchy-Viewer (~> 1.4.7)
   - MMProgressHUD (~> 0.3.1)
 
+EXTERNAL SOURCES:
+  AdsMoGo-iOS-Lib:
+    :git: https://github.com/chensj1901/AdsMoGo-iOS-Lib.git
+
+CHECKOUT OPTIONS:
+  AdsMoGo-iOS-Lib:
+    :commit: da303434749ef6f5e031dcffd5520178c6db4991
+    :git: https://github.com/chensj1901/AdsMoGo-iOS-Lib.git
+
 SPEC CHECKSUMS:
+  AdsMoGo-iOS-Lib: 7fc8d67c53d7724b164911588197feffe143676f
   AFNetworking: 41d45d2c14219af0fa5addf3cfd433a002c13c9f
   EGOCache: f0295dbe041156acabd39021354ad1045ee49e72
   EGOImageLoading: 99d7c4a9fb5a192ab37979b63ea03efc7097fe8e
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXBlurView: c6d23f3d35af2c6282296a2930f61c6e2c788d01
-  iOS-Hierarchy-Viewer: fb8ef72b55a8915ab0575543970754ea696e9061
   MMProgressHUD: dac2655d62d28e7d6dc28bf72d9531a4d4c62459
 
-COCOAPODS: 0.36.1
+COCOAPODS: 0.38.2

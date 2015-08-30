@@ -64,7 +64,7 @@
 }
 
 -(NSString *)thisPageContent{
-    return  [self.bookChapter.kdBook stringWithPage:self.bookChapter.pageIndex];
+    return  [[self thisKDBookContentPath]substringWithRange:[[self.bookChapter.pageArr safeObjectAtIndex:self.bookChapter.pageIndex]rangeValue]];
 }
 
 -(IFlySpeechSynthesizer *)speechSynthesizer{
@@ -93,9 +93,10 @@
         if (self.bookChapter) {
             [self.bookService.bookChapters enumerateObjectsUsingBlock:^(SJBookChapter* chapter, NSUInteger idx, BOOL *stop) {
                 if ([self.bookChapter.chapterName isEqualToString:chapter.chapterName]) {
-#warning 这里的赋值会引发BUG
+//#warning 这里的赋值会引发BUG
+                    [self.bookService.bookChapters replaceObjectAtIndex:idx withObject:self.bookChapter];
                     chapter.isSelected=YES;
-                    self.bookChapter=chapter;
+//                    self.bookChapter=chapter;
                 }
             }];
         }else{
@@ -106,12 +107,15 @@
             }
         }
         
-//        [SJBookChapterRecode insertBookChapters:self.bookService.bookChapters];
+
         
         if (!self.hasInit) {
             self.hasInit=YES;
             SJBookReadingViewController *bookReadingVC=[[SJBookReadingViewController alloc]init];
             bookReadingVC.delegate=self;
+            bookReadingVC.book=self.book;
+            bookReadingVC.bookChapter=self.bookChapter;
+            bookReadingVC.bookService=self.bookService;
             
             [self setViewControllers:@[bookReadingVC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
         }
@@ -296,17 +300,47 @@
         
     SJBookReadingViewController *bookReadingVC=[[SJBookReadingViewController alloc]init];
     bookReadingVC.delegate=self;
-        
+    bookReadingVC.book=self.book;
+    bookReadingVC.bookChapter=self.bookChapter;
+    bookReadingVC.bookService=self.bookService;
+    
     [self setViewControllers:@[bookReadingVC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 
 }
 
+-(SJBookChapter *)nextBookChapter{
+    NSInteger index=[self.bookService.bookChapters getObjectIndexWithBlock:^BOOL(id obj) {
+        return obj==self.bookChapter;
+    }];
+    
+    SJBookChapter *chapter=[self.bookService.bookChapters safeObjectAtIndex:++index];
+    return chapter;
+}
+
+-(SJBookChapter *)previousBookChapter{
+    NSInteger index=[self.bookService.bookChapters getObjectIndexWithBlock:^BOOL(id obj) {
+        return obj==self.bookChapter;
+    }];
+    
+    SJBookChapter *chapter=[self.bookService.bookChapters safeObjectAtIndex:--index];
+    return chapter;
+}
+
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
-    if (self.bookChapter._id==[self.bookService.bookChapters count]-1&&self.bookChapter.pageIndex==self.bookChapter.kdBook.pageTotal-1) {
+    if (self.bookChapter._id==[self.bookService.bookChapters count]-1&&self.bookChapter.pageIndex==[self.bookChapter.pageArr count]-1) {
         return nil;
     }else{
+        if (self.bookChapter.pageIndex<[self.bookChapter.pageArr count]-1) {
+            self.bookChapter.pageIndex++;
+        }else{
+            self.bookChapter=self.nextBookChapter;
+        }
+        
         SJBookReadingViewController *bookReadingVC=[[SJBookReadingViewController alloc]init];
         bookReadingVC.delegate=self;
+        bookReadingVC.book=self.book;
+        bookReadingVC.bookChapter=self.bookChapter;
+        bookReadingVC.bookService=self.bookService;
         return bookReadingVC;
     }
 }
@@ -315,13 +349,24 @@
     if (self.bookChapter._id==0&&self.bookChapter.pageIndex==0) {
         return nil;
     }else{
+        if (self.bookChapter.pageIndex>0) {
+            self.bookChapter.pageIndex--;
+        }else{
+            self.bookChapter=self.previousBookChapter;
+        }
+        
         SJBookReadingViewController *bookReadingVC=[[SJBookReadingViewController alloc]init];
         bookReadingVC.delegate=self;
         bookReadingVC.isPrevious=YES;
+        bookReadingVC.book=self.book;
+        bookReadingVC.bookChapter=self.bookChapter;
+        bookReadingVC.bookService=self.bookService;
         return bookReadingVC;
     }
     
 }
+
+
 
 - (void)viewDidLoad
 {

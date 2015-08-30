@@ -13,6 +13,8 @@
 @interface SJBookReadPageViewController : UIPageViewController
 @property(nonatomic)SJBookService *bookService;
 @property(nonatomic)SJBookChapter *bookChapter;
+@property(nonatomic,readonly)SJBookChapter *previousBookChapter;
+@property(nonatomic,readonly)SJBookChapter *nextBookChapter;
 @property(nonatomic)SJBook *book;
 @property(nonatomic)UIButton *readBtn;
 @property(nonatomic)SJCatalogViewController *catalogVC;
