@@ -14,9 +14,6 @@
 @class SJBookReadingViewController;
 
 @protocol SJBookReadingViewControllerDelegate <NSObject>
-@property(nonatomic)SJBookService *bookService;
-@property(nonatomic)SJBook *book;
-@property(nonatomic)SJBookChapter *bookChapter;
 @optional
 -(void)bookReadingViewControllerDidRefreshBookContent:(SJBookReadingViewController*)vc;
 -(void)bookReadingViewControllerDidNeedReadBook:(SJBookReadingViewController *)vc;
@@ -29,6 +26,10 @@
 
 @interface SJBookReadingViewController : SJBaseViewController
 @property(nonatomic,weak)id<SJBookReadingViewControllerDelegate>delegate;
+@property(nonatomic,weak)SJBookService *bookService;
+@property(nonatomic,weak)SJBookChapter *bookChapter;
+@property(nonatomic,weak)SJBook *book;
+@property(nonatomic)NSInteger page;
 @property(nonatomic)BOOL isPrevious;
 @property(nonatomic)SJBookReadingView *mainView;
 @end

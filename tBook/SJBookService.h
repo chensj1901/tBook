@@ -33,7 +33,6 @@
 
 -(void)loadBookDetailWithGid:(NSInteger)gid cacheMethod:(SJCacheMethod)cacheMethod success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail;
 
-
 -(void)loadContentWithChapter:(SJBookChapter*)chapter  book:(SJBook*)book success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail nextSuccess:(SJServiceSuccessBlock)nextSuccess previousSuccess:(SJServiceSuccessBlock)preSuccess;
 
 -(void)loadBookChapterWithBook:(SJBook*)book cacheMethod:(SJCacheMethod)cacheMethod success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail;

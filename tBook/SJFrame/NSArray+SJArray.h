@@ -16,4 +16,5 @@
 -(id)safeObjectAtIndex:(NSUInteger)index;
 -(NSString*)stringValue;
 -(id)getObjectWithBlock: (BOOL(^)(id obj))block;
+-(NSUInteger)getObjectIndexWithBlock: (BOOL(^)(id obj))block;
 @end

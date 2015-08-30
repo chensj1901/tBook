@@ -98,74 +98,22 @@
 }
 
 -(void)loadData{
-    KDBook *kdBook=self.delegate.bookChapter.kdBook;
-    NSLog(@"%@-%@",self.delegate.bookChapter,self.delegate);
-    if (!kdBook) {
-        [MMProgressHUD showWithTitle:@"努力搬书中..."];
-        [self.delegate.bookService loadContentWithChapter:self.delegate.bookChapter book:self.delegate.book success:^{
-            [MMProgressHUD dismiss];
-            KDBook *kdBook=self.delegate.bookChapter.kdBook;
-            NSLog(@"%@-%@",self.delegate.bookChapter,self.delegate);
-            if (self.isPrevious) {
-                self.delegate.bookChapter.pageIndex=kdBook.pageTotal-1;
-            }else{
-                self.delegate.bookChapter.pageIndex=0;
-            }
-            [self loadContentWithKDBook:kdBook];
-            if ([self.delegate respondsToSelector:@selector(bookReadingViewControllerDidRefreshBookContent:)]) {
-                [self.delegate bookReadingViewControllerDidRefreshBookContent:self];
-            }
-        } fail:^(NSError *error) {
-            [MMProgressHUD dismissWithError:error.domain];
-        }];
-    }else{
-        if (self.isPrevious) {
-            if (self.delegate.bookChapter.pageIndex==0) {
-                if (self.delegate.bookChapter._id>0) {
-                    self.delegate.bookChapter.isSelected=NO;
-                    self.delegate.bookChapter=[self.delegate.bookService.bookChapters objectAtIndex:self.delegate.bookChapter._id-1];
-                    self.delegate.bookChapter.isSelected=YES;
-                    if (self.delegate.bookChapter) {
-                        self.delegate.bookChapter.kdBook=nil;
-                        [self loadData];
-                    }
-                }
-            }else{
-                self.delegate.bookChapter.pageIndex--;
-                [self loadContentWithKDBook:kdBook];
-            
-            }
-        }else{
-            if (self.delegate.bookChapter.pageIndex==kdBook.pageTotal-1) {
-                if (self.delegate.bookChapter._id<[self.delegate.bookService.bookChapters count]-1) {
-                    self.delegate.bookChapter.isSelected=NO;
-                    self.delegate.bookChapter=[self.delegate.bookService.bookChapters objectAtIndex:self.delegate.bookChapter._id+1];
-                    self.delegate.bookChapter.isSelected=YES;
-                    if (self.delegate.bookChapter) {
-                        self.delegate.bookChapter.kdBook=nil;
-                        [self loadData];
-                    }
-                }else{
-                    self.delegate.bookChapter.pageIndex--;
-                    [self loadContentWithKDBook:kdBook];
-                    
-                }
-            }else{
-                self.delegate.bookChapter.pageIndex++;
-                [self loadContentWithKDBook:kdBook];
-                
-            }
+    [self.bookService loadContentWithChapter:self.bookChapter book:self.book success:^{
+        [self reloadContent];
+    }fail:^(NSError *error) {
         
-        }
-        
-//        [self loadContentWithKDBook:kdBook];
-    }
+    }];
+}
 
+-(void)reloadContent{
+    NSString *string=[NSString stringWithContentsOfFile:self.bookChapter.filePathWithThisChapter encoding:NSUTF8StringEncoding error:nil];
+    NSString *thisContent=[string substringWithRange:[[self.bookChapter.pageArr safeObjectAtIndex:self.bookChapter.pageIndex]rangeValue]];
+    self.mainView.bookContentLabel.text=thisContent;
 }
 
 -(void)loadContentWithKDBook:(KDBook*)kdBook{
-    self.mainView.bookContentLabel.text=[kdBook stringWithPage:self.delegate.bookChapter.pageIndex];
-    [SJBookChapterReadRecode insertBookChapter:self.delegate.bookChapter];
+    self.mainView.bookContentLabel.text=[kdBook stringWithPage:self.bookChapter.pageIndex];
+    [SJBookChapterReadRecode insertBookChapter:self.bookChapter];
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{

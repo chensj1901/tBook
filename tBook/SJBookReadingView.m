@@ -7,6 +7,7 @@
 //
 
 #import "SJBookReadingView.h"
+#import "SJSettingRecode.h"
 
 @implementation SJBookReadingView
 {
@@ -68,7 +69,7 @@
 -(UILabel *)bookContentLabel{
     if (!_bookContentLabel) {
         _bookContentLabel=[[UILabel alloc]initWithFrame:_bookContentLabelRect];
-        [_bookContentLabel quicklySetFontPoint:14 textColorHex:@"ffffff" textAlignment:NSTextAlignmentLeft];
+        [_bookContentLabel quicklySetFontPoint:[[SJSettingRecode getSet:@"textFont"]intValue] textColorHex:@"ffffff" textAlignment:NSTextAlignmentLeft];
         _bookContentLabel.numberOfLines=0;
         _bookContentLabel.lineBreakMode=NSLineBreakByWordWrapping;
         _bookContentLabel.userInteractionEnabled=NO;
