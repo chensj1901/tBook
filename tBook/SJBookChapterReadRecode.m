@@ -12,7 +12,7 @@
 @implementation SJBookChapterReadRecode
 +(void)initDB{
     if (![self hasInstall]) {
-        NSString *sql=@"CREATE TABLE `BOOK_CHAPTER_READ` (`time` integer,`sort` integer,`nid` integer,`site` varchar(0,255),`gsort` integer,`chapterName` varchar(0,255),`ctype` varchar(0,255),`paid` integer,`curl` varchar(0,255),`charge` integer,`gid` integer, `pageIndex` integer, PRIMARY KEY(`gid`))";
+        NSString *sql=@"CREATE TABLE `BOOK_CHAPTER_READ` (`time` integer,`sort` integer,`nid` integer,`site` varchar(0,255),`gsort` integer,`chapterName` varchar(0,255),`ctype` varchar(0,255),`paid` integer,`curl` varchar(0,255),`charge` integer,`gid` integer, `pageIndex` integer, PRIMARY KEY(`nid`))";
         [self executeUpdate:sql];
     }
     

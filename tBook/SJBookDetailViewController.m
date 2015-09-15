@@ -10,9 +10,13 @@
 #import "SJBookDetailView.h"
 #import "SJBookRecode.h"
 #import "SJBookReadPageViewController.h"
+#import <MMProgressHUD.h>
+#import "SJBookService.h"
+#import "SJBookCacheQueue.h"
 
 @interface SJBookDetailViewController ()
 @property(nonatomic)SJBookDetailView *mainView;
+
 @end
 
 @implementation SJBookDetailViewController
@@ -30,6 +34,7 @@
 
 -(void)loadTarget{
     [self.mainView.readNowBtn addTarget:self action:@selector(readNow) forControlEvents:UIControlEventTouchUpInside];
+    [self.mainView.cacheAllBtn addTarget:self action:@selector(cacheAll) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)readNow{
@@ -37,7 +42,15 @@
     
     SJBookReadPageViewController *charterVC=[[SJBookReadPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     charterVC.book=self.book;
+    
+//    self.navigationController.viewControllers=[[NSArray new]mutableCopy];
     [self.navigationController pushViewController:charterVC animated:YES];
+}
+
+-(void)cacheAll{
+//    [MMProgressHUD showWithStatus:@"正在读取章节"];
+    
+    [[SJBookCacheQueue queue]addOperation:[SJBookCacheOperation operationWithBook:self.book]];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

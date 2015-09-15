@@ -36,6 +36,8 @@
     [self quicklyCreateRightButtonWithImageName:@"右侧推荐_搜索icon.png" highlightedImageName:nil selector:@selector(searchBook)];
     
     [self loadTarget];
+    
+    self.switchBackgroundView.scrollEnabled=NO;
 }
 
 -(void)searchBook{
@@ -82,7 +84,7 @@
 }
 
 -(CGRect)rectOfView{
-    return CGRectMake(0, 0, WIDTH, HEIGHT-50);
+    return CGRectMake(0, 0, WIDTH, HEIGHT);
 }
 
 -(void)switchViewControllerDidStopAtIndex:(NSInteger)index{

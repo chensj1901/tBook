@@ -23,22 +23,23 @@
 @end
 
 @implementation SJIndexViewController
+//@synthesize mainView=_mainView;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-   [self.bookService loadLocalBooksWithSuccess:^{
-       [self.mainView.resultTableView reloadData];
-   } fail:^(NSError *error) {
-       
-   }];
+
     
 }
 
-
-
+//-(SJIndexView *)mainView{
+//    if (!_mainView) {
+//        _mainView=[[SJIndexView alloc]initWithFrame:MAINVIEW_HEIGHT_HASNAVBAR_NOTABBAR_RECT];
+//    }
+//    return _mainView;
+//}
 
 
 -(void)loadTarget{
@@ -48,9 +49,7 @@
     
     self.mainView.searchTextField.delegate=self;
     
-    if (IS_IOS7()) {
-        self.mainView.resultTableView.contentInset=UIEdgeInsetsMake(44, 0, 0, 0);
-    }
+
     
 }
 
@@ -62,11 +61,32 @@
     
 }
 
+-(void)reloadLocationBooks{
+    [self.bookService loadLocalBooksWithSuccess:^{
+        [self.mainView.resultTableView reloadData];
+    } fail:^(NSError *error) {
+        
+    }];
+}
+
 -(SJBookService *)bookService{
     if (!_bookService) {
         _bookService=[[SJBookService alloc]init];
     }
     return _bookService;
+}
+
+-(void)deleteWithIndexPath:(NSIndexPath *)indexPath{
+    SJBook *book=[self.bookService.locaBooks safeObjectAtIndex:indexPath.row];
+    [self.bookService deleteLocalBookWithBook:book];
+    
+    if ([self.bookService.locaBooks count]==0) {
+        [self.mainView.resultTableView reloadData];
+    }else{
+        [self.mainView.resultTableView beginUpdates];
+        [self.mainView.resultTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.mainView.resultTableView endUpdates];
+    }
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -75,6 +95,10 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return MAX([self.bookService.locaBooks count],1);
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [[UIView alloc]init];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -123,8 +147,23 @@
     return [SJBookCell cellHeight];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 20;
+}
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle==UITableViewCellEditingStyleDelete) {
+        [self deleteWithIndexPath:indexPath];
+    }
+}
+
 -(void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self reloadLocationBooks];
         pullTableView.pullTableIsRefreshing=NO;
     });
 
@@ -144,6 +183,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self reloadLocationBooks];
 }
 
 @end

@@ -9,16 +9,13 @@
 #import "SJService.h"
 #import "SJBook.h"
 #import "SJBookChapter.h"
-#import "KDBook.h"
 #import "SJHTTPRequestOperationManager.h"
 
 @interface SJBookService : SJService
 @property(nonatomic)NSInteger searchKeyPageId;
 @property(nonatomic)NSInteger searchKeyTotal;
-@property(nonatomic)KDBook *book;
-@property(nonatomic)KDBook *previousBook;
-@property(nonatomic)KDBook *nextBook;
 @property(nonatomic)NSMutableArray *locaBooks;
+@property(nonatomic)NSMutableArray *searchHintBooks;
 @property(nonatomic)NSMutableArray *searchResultBooks;
 @property(nonatomic)NSMutableArray *bookChapters;
 @property(nonatomic)SJBookChapter *previousChapter;
@@ -30,10 +27,10 @@
 
 -(void)loadMoreBooksWithKeyWord:(NSString*)keyWorld success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail;
 
+-(void)loadSearchHintWithKey:(NSString *)keyWord success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail;
 
 -(void)loadBookDetailWithGid:(NSInteger)gid cacheMethod:(SJCacheMethod)cacheMethod success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail;
 
--(void)loadContentWithChapter:(SJBookChapter*)chapter  book:(SJBook*)book success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail nextSuccess:(SJServiceSuccessBlock)nextSuccess previousSuccess:(SJServiceSuccessBlock)preSuccess;
 
 -(void)loadBookChapterWithBook:(SJBook*)book cacheMethod:(SJCacheMethod)cacheMethod success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail;
 
@@ -43,6 +40,10 @@
 
 -(void)loadContentWithChapter:(SJBookChapter*)chapter  book:(SJBook*)book success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail;
 
+
+-(void)loadContentWithChapter:(SJBookChapter*)chapter  book:(SJBook*)book shouldFormatPage:(BOOL)shouldFormatPage success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail;
+
+-(void)deleteLocalBookWithBook:(SJBook *)book;
 @end
 
 

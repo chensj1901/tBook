@@ -44,7 +44,7 @@
 
 -(void)loadSetting{
     _bookTitleLabelRect= CGRectMake(0, 0, WIDTH, 12);
-    _bookContentLabelRect= CGRectMake(10, 20, WIDTH-20, HEIGHT-28);
+    _bookContentLabelRect= CGRectMake(10, 20, WIDTH-20, HEIGHT-60);
     _backgroundViewRect= CGRectMake(0, 0, WIDTH, HEIGHT);
 }
 

@@ -77,15 +77,24 @@
     return _bookService;
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self searchBook];
     [self.mainView.searchBar resignFirstResponder];
     
     return YES;
+}
+
+
+-(void)textFieldChange:(NSNotification *)notification{
+    UITextField *textField=notification.object;
+    if (textField.selectedRange.length==0) {
+        [self.bookService loadSearchHintWithKey:textField.text success:^{
+            
+        } fail:^(NSError *error) {
+            
+        }];
+    }
 }
 
 
@@ -122,6 +131,19 @@
 
 -(void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView{
     [self loadMoreBooks];
+}
+
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.mainView.searchBar becomeFirstResponder];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldChange:) name:UITextFieldTextDidChangeNotification object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 /*

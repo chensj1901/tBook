@@ -58,13 +58,13 @@
     return _readMaskView;
 }
 
--(NSString*)thisKDBookContentPath{
+-(NSString*)thisBookContentPath{
     NSString *string=[NSString stringWithContentsOfFile:self.bookChapter.filePathWithThisChapter encoding:NSUTF8StringEncoding error:nil];
     return string;
 }
 
 -(NSString *)thisPageContent{
-    return  [[self thisKDBookContentPath]substringWithRange:[[self.bookChapter.pageArr safeObjectAtIndex:self.bookChapter.pageIndex]rangeValue]];
+    return  [[self thisBookContentPath]substringWithRange:[[self.bookChapter.pageArr safeObjectAtIndex:self.bookChapter.pageIndex]rangeValue]];
 }
 
 -(IFlySpeechSynthesizer *)speechSynthesizer{
@@ -93,10 +93,11 @@
         if (self.bookChapter) {
             [self.bookService.bookChapters enumerateObjectsUsingBlock:^(SJBookChapter* chapter, NSUInteger idx, BOOL *stop) {
                 if ([self.bookChapter.chapterName isEqualToString:chapter.chapterName]) {
-//#warning 这里的赋值会引发BUG
+                    self.bookChapter.isSelected=YES;
+                    self.bookChapter.gid=chapter.gid;
+                    self.bookChapter._id=chapter._id;
                     [self.bookService.bookChapters replaceObjectAtIndex:idx withObject:self.bookChapter];
                     chapter.isSelected=YES;
-//                    self.bookChapter=chapter;
                 }
             }];
         }else{
@@ -127,7 +128,7 @@
 
 -(void)readIndex:(NSUInteger)index{
     NSRange curRange=[self.bookContentSeparates[self.readIndex]rangeValue];
-    NSString* readText=[self.thisKDBookContentPath substringWithRange:curRange];
+    NSString* readText=[self.thisBookContentPath substringWithRange:curRange];
     [self.speechSynthesizer stopSpeaking];
     [self.speechSynthesizer startSpeaking:readText];
     
@@ -246,9 +247,9 @@
 }
 
 -(void)read{
-    NSRange contentRange=[self.thisKDBookContentPath rangeOfString:[self thisPageContent]];
+    NSRange contentRange=[self.thisBookContentPath rangeOfString:[self thisPageContent]];
     
-    self.bookContentSeparates=[self.thisKDBookContentPath intelligentWordRangeWithBeginLocation:contentRange.length>0?contentRange.location:0];
+    self.bookContentSeparates=[self.thisBookContentPath intelligentWordRangeWithBeginLocation:contentRange.length>0?contentRange.location:0];
     
     self.readIndex=0;
     [self readIndex:self.readIndex];
@@ -277,7 +278,7 @@
 }
 
 -(void)bookReadingViewControllerDidShowSourceWebsite:(SJBookReadingViewController *)vc{
-    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[self.book.site hasPrefix:@"http"]?self.book.site:[NSString stringWithFormat:@"http://%@",self.book.site]]];
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[self.bookChapter.curl hasPrefix:@"http"]?self.bookChapter.curl:[NSString stringWithFormat:@"http://%@",self.bookChapter.curl]]];
 }
 
 -(void)bookReadingViewControllerDidHiddenToolbar:(SJBookReadingViewController *)vc{
@@ -382,10 +383,14 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
+
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

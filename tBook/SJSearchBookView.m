@@ -15,6 +15,7 @@
     CGRect _searchBtnRect;
     CGRect _searchBarRect;
     CGRect _resultTableViewRect;
+    CGRect _searchHintTableViewRect;
 }
 
 
@@ -23,6 +24,7 @@
 @synthesize searchBtn=_searchBtn;
 @synthesize searchBar=_searchBar;
 @synthesize resultTableView=_resultTableView;
+@synthesize searchHintTableView=_searchHintTableView;
 
 
 #pragma mark - 初始化
@@ -42,11 +44,13 @@
     _searchBarRect= CGRectMake(5, 5+ios7Offset, SELF_WIDTH-65, 30);
     _searchBtnRect= CGRectMake(SELF_WIDTH-55, 5+ios7Offset, 50, 30);
     _resultTableViewRect= CGRectMake(0,44+ios7Offset, SELF_WIDTH, SELF_HEIGHT-64);
+    _searchHintTableViewRect= CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
 }
 
 -(void)loadUI{
     [self addSubview:self.backgroundView];
     [self.backgroundView addSubview:self.searchbarView];
+    [self.backgroundView addSubview:self.searchHintTableView];
     [self.searchbarView addSubview:self.searchBtn];
     [self.searchbarView addSubview:self.searchBar];
     [self.backgroundView addSubview:self.resultTableView];
@@ -94,6 +98,13 @@
     return _resultTableView;
 }
 
+
+-(UITableView *)searchHintTableView{
+    if (!_searchHintTableView) {
+        _searchHintTableView=[[UITableView alloc]initWithFrame:_searchBarRect];
+    }
+    return _searchHintTableView;
+}
 
 
 #pragma mark - 其他方法

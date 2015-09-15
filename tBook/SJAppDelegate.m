@@ -22,7 +22,7 @@
     [SJBookChapterReadRecode initDB];
     [SJBookChapterRecode initDB];
     
-    [SJSettingRecode set:@"textFont" value:@"14"];
+    [SJSettingRecode set:@"textFont" value:@"20"];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

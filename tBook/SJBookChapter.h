@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KDBook.h"
 
 @interface SJBookChapter : NSObject
 
@@ -71,8 +70,6 @@
 @property(nonatomic)NSInteger pageIndex;
 
 @property(nonatomic)NSMutableArray *pageArr;
-
-@property(nonatomic)KDBook *kdBook;
 
 @property(nonatomic)BOOL isSelected;
 

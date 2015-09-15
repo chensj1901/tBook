@@ -20,4 +20,7 @@
 +(void)apiLoadContentWithChapter:(SJBookChapter*)chapter  success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 
 +(void)apiLoadBookChapterWithBook:(SJBook*)book cacheMethod:(SJCacheMethod)cacheMethod success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+
+
++(void)apiLoadSearchHintBooksWithKeyWord:(NSString*)keyWorld success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 @end

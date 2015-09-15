@@ -30,9 +30,7 @@
 		04F890391B11787200DEA5F3 /* 右侧推荐_搜索icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F890381B11787200DEA5F3 /* 右侧推荐_搜索icon@2x.png */; };
 		04F8903C1B117B2900DEA5F3 /* SJTipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F8903B1B117B2900DEA5F3 /* SJTipCell.m */; };
 		33013AFE1A88A64800BEE6AD /* SJBookReadingOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33013AFD1A88A64800BEE6AD /* SJBookReadingOperationView.m */; };
-		3301F5421A305702008F29CF /* KDBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 3301F5411A305702008F29CF /* KDBook.m */; };
 		3301F5481A306410008F29CF /* SJCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3301F5471A306410008F29CF /* SJCell.m */; };
-		3301F54B1A306425008F29CF /* SJReadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3301F54A1A306425008F29CF /* SJReadCell.m */; };
 		330CEBA41A2DBAB600D69A2D /* DataBaseIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 330CEB9F1A2DBAB600D69A2D /* DataBaseIO.m */; };
 		330CEBA51A2DBAB600D69A2D /* SJBookRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 330CEBA11A2DBAB600D69A2D /* SJBookRecode.m */; };
 		330CEBA61A2DBAB600D69A2D /* SJSettingRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 330CEBA31A2DBAB600D69A2D /* SJSettingRecode.m */; };
@@ -43,6 +41,9 @@
 		332214811AAF21760080F762 /* SJRankURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 332214801AAF21760080F762 /* SJRankURLRequest.m */; };
 		332A14951A2C646D000AE39F /* NSFileManager+SJFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 332A14941A2C646D000AE39F /* NSFileManager+SJFileManager.m */; };
 		3334975C1A3999A6001E0773 /* UIView+SJView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3334975B1A3999A6001E0773 /* UIView+SJView.m */; };
+		333515691BA272FD001B7D0A /* SJBookCacheQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 333515681BA272FD001B7D0A /* SJBookCacheQueue.m */; };
+		3335156C1BA27356001B7D0A /* SJBookCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3335156B1BA27356001B7D0A /* SJBookCacheOperation.m */; };
+		3335156E1BA29E67001B7D0A /* reading_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3335156D1BA29E67001B7D0A /* reading_background.png */; };
 		333C5B331A3AD82100326EF8 /* SJBookURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 333C5B321A3AD82100326EF8 /* SJBookURLRequest.m */; };
 		3340E0BD1A2F0094006C74D5 /* SJSquareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3340E0BC1A2F0094006C74D5 /* SJSquareViewController.m */; };
 		335903C31A2814E900BFE20F /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335903C21A2814E900BFE20F /* iflyMSC.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -54,6 +55,9 @@
 		335903CF1A28152100BFE20F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335903CE1A28152100BFE20F /* AudioToolbox.framework */; };
 		335903D11A28152C00BFE20F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335903D01A28152C00BFE20F /* SystemConfiguration.framework */; };
 		335903D31A28153300BFE20F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335903D21A28153300BFE20F /* QuartzCore.framework */; };
+		335D079F1BA2FA7000248710 /* SJReadingStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 335D079E1BA2FA7000248710 /* SJReadingStatusBarView.m */; };
+		335D07A21BA305D500248710 /* SJBatteryImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 335D07A11BA305D500248710 /* SJBatteryImageView.m */; };
+		335D07A41BA3073300248710 /* read_battery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 335D07A31BA3073300248710 /* read_battery@2x.png */; };
 		336B8E7D1A231D6500685FA3 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 336B8E6D1A231D6500685FA3 /* EGORefreshTableHeaderView.m */; };
 		336B8E7E1A231D6500685FA3 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 336B8E6F1A231D6500685FA3 /* LoadMoreTableFooterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		336B8E7F1A231D6500685FA3 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 336B8E711A231D6500685FA3 /* MessageInterceptor.m */; };
@@ -233,12 +237,8 @@
 		11599E8D83371A828EEE3483 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		33013AFC1A88A64800BEE6AD /* SJBookReadingOperationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBookReadingOperationView.h; sourceTree = "<group>"; };
 		33013AFD1A88A64800BEE6AD /* SJBookReadingOperationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBookReadingOperationView.m; sourceTree = "<group>"; };
-		3301F5401A305702008F29CF /* KDBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDBook.h; sourceTree = "<group>"; };
-		3301F5411A305702008F29CF /* KDBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDBook.m; sourceTree = "<group>"; };
 		3301F5461A306410008F29CF /* SJCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCell.h; sourceTree = "<group>"; };
 		3301F5471A306410008F29CF /* SJCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJCell.m; sourceTree = "<group>"; };
-		3301F5491A306425008F29CF /* SJReadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJReadCell.h; sourceTree = "<group>"; };
-		3301F54A1A306425008F29CF /* SJReadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJReadCell.m; sourceTree = "<group>"; };
 		330CEB9E1A2DBAB600D69A2D /* DataBaseIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseIO.h; sourceTree = "<group>"; };
 		330CEB9F1A2DBAB600D69A2D /* DataBaseIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseIO.m; sourceTree = "<group>"; };
 		330CEBA01A2DBAB600D69A2D /* SJBookRecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJBookRecode.h; path = SJDataBase/SJBookRecode.h; sourceTree = "<group>"; };
@@ -261,6 +261,11 @@
 		332A14941A2C646D000AE39F /* NSFileManager+SJFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+SJFileManager.m"; sourceTree = "<group>"; };
 		3334975A1A3999A6001E0773 /* UIView+SJView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SJView.h"; sourceTree = "<group>"; };
 		3334975B1A3999A6001E0773 /* UIView+SJView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SJView.m"; sourceTree = "<group>"; };
+		333515671BA272FD001B7D0A /* SJBookCacheQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBookCacheQueue.h; sourceTree = "<group>"; };
+		333515681BA272FD001B7D0A /* SJBookCacheQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBookCacheQueue.m; sourceTree = "<group>"; };
+		3335156A1BA27356001B7D0A /* SJBookCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBookCacheOperation.h; sourceTree = "<group>"; };
+		3335156B1BA27356001B7D0A /* SJBookCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBookCacheOperation.m; sourceTree = "<group>"; };
+		3335156D1BA29E67001B7D0A /* reading_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reading_background.png; sourceTree = "<group>"; };
 		333C5B311A3AD82100326EF8 /* SJBookURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBookURLRequest.h; sourceTree = "<group>"; };
 		333C5B321A3AD82100326EF8 /* SJBookURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBookURLRequest.m; sourceTree = "<group>"; };
 		3340E0BB1A2F0094006C74D5 /* SJSquareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSquareViewController.h; sourceTree = "<group>"; };
@@ -274,6 +279,11 @@
 		335903CE1A28152100BFE20F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		335903D01A28152C00BFE20F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		335903D21A28153300BFE20F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		335D079D1BA2FA7000248710 /* SJReadingStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJReadingStatusBarView.h; sourceTree = "<group>"; };
+		335D079E1BA2FA7000248710 /* SJReadingStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJReadingStatusBarView.m; sourceTree = "<group>"; };
+		335D07A01BA305D500248710 /* SJBatteryImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBatteryImageView.h; sourceTree = "<group>"; };
+		335D07A11BA305D500248710 /* SJBatteryImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBatteryImageView.m; sourceTree = "<group>"; };
+		335D07A31BA3073300248710 /* read_battery@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read_battery@2x.png"; sourceTree = "<group>"; };
 		336B8E6C1A231D6500685FA3 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		336B8E6D1A231D6500685FA3 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		336B8E6E1A231D6500685FA3 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
@@ -581,15 +591,6 @@
 			name = "搜书页";
 			sourceTree = "<group>";
 		};
-		3301F5431A30570B008F29CF /* KDBook */ = {
-			isa = PBXGroup;
-			children = (
-				3301F5401A305702008F29CF /* KDBook.h */,
-				3301F5411A305702008F29CF /* KDBook.m */,
-			);
-			name = KDBook;
-			sourceTree = "<group>";
-		};
 		3301F5451A3063AC008F29CF /* 阅读页 */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,6 +664,17 @@
 				33FA079D1A271DA6009E4F8F /* SJBookDetailView.m */,
 			);
 			name = "封面页";
+			sourceTree = "<group>";
+		};
+		333515661BA27274001B7D0A /* 缓存器 */ = {
+			isa = PBXGroup;
+			children = (
+				333515671BA272FD001B7D0A /* SJBookCacheQueue.h */,
+				333515681BA272FD001B7D0A /* SJBookCacheQueue.m */,
+				3335156A1BA27356001B7D0A /* SJBookCacheOperation.h */,
+				3335156B1BA27356001B7D0A /* SJBookCacheOperation.m */,
+			);
+			name = "缓存器";
 			sourceTree = "<group>";
 		};
 		336B8E6A1A231D6500685FA3 /* EGOTableViewPullRefresh */ = {
@@ -943,10 +955,12 @@
 			children = (
 				04C1E9A21A73F8E1009967E8 /* SJBookReadingView.h */,
 				04C1E9A31A73F8E1009967E8 /* SJBookReadingView.m */,
+				335D07A01BA305D500248710 /* SJBatteryImageView.h */,
+				335D07A11BA305D500248710 /* SJBatteryImageView.m */,
 				33013AFC1A88A64800BEE6AD /* SJBookReadingOperationView.h */,
 				33013AFD1A88A64800BEE6AD /* SJBookReadingOperationView.m */,
-				3301F5491A306425008F29CF /* SJReadCell.h */,
-				3301F54A1A306425008F29CF /* SJReadCell.m */,
+				335D079D1BA2FA7000248710 /* SJReadingStatusBarView.h */,
+				335D079E1BA2FA7000248710 /* SJReadingStatusBarView.m */,
 				3383EF4B1A8A0A9A00E35240 /* SJCatalogView.h */,
 				3383EF4C1A8A0A9A00E35240 /* SJCatalogView.m */,
 				339F36511A8AF9D800279D47 /* SJCatalogCell.h */,
@@ -1118,7 +1132,6 @@
 				33AFF1441A85EA6200DDB128 /* UI */,
 				33AFF1371A85E57600DDB128 /* SJSwitchViewController */,
 				04521D6C1A6186EB00672977 /* lib */,
-				3301F5431A30570B008F29CF /* KDBook */,
 				330CEB9D1A2DBAB600D69A2D /* SJDataBase */,
 				3311EACA1A23179F0040D79F /* SJFrame */,
 				3301F5451A3063AC008F29CF /* 阅读页 */,
@@ -1127,6 +1140,7 @@
 				33914B781A88637100207C01 /* 导航页 */,
 				339F36541A8B19BF00279D47 /* 排行页 */,
 				331C5E2A1AD40BFA00C68607 /* 封面页 */,
+				333515661BA27274001B7D0A /* 缓存器 */,
 				33DD44541A30865200EB1626 /* SJHTTPRequestOperationManager.h */,
 				33DD44551A30865200EB1626 /* SJHTTPRequestOperationManager.m */,
 				336B8E921A2339AA00685FA3 /* SJURLRequestMethodDefined.h */,
@@ -1209,11 +1223,13 @@
 		33F2EDC21A88EA33000905E7 /* 阅读页 */ = {
 			isa = PBXGroup;
 			children = (
+				3335156D1BA29E67001B7D0A /* reading_background.png */,
 				33F2EDCB1A88EA9F000905E7 /* read_catelog@2x.png */,
 				33F2EDCC1A88EA9F000905E7 /* read_darkMode@2x.png */,
 				33F2EDC41A88EA33000905E7 /* read_listen@2x.png */,
 				33F2EDC51A88EA33000905E7 /* read_msg@2x.png */,
 				33A4B0091A89C409003030BF /* read_more@2x.png */,
+				335D07A31BA3073300248710 /* read_battery@2x.png */,
 			);
 			path = "阅读页";
 			sourceTree = "<group>";
@@ -1356,6 +1372,7 @@
 				049540051B08D40400F833F7 /* n-y@2x.png in Resources */,
 				33AFF1541A85EA9B00DDB128 /* profile@2x.png in Resources */,
 				338BCE6B1B9055D000374955 /* adwo_share2sina.png in Resources */,
+				335D07A41BA3073300248710 /* read_battery@2x.png in Resources */,
 				338BCE7B1B9055D000374955 /* adwo_videoMuteBig.png in Resources */,
 				338BCE821B9055D000374955 /* adwo_videoTimeRectangleBig.png in Resources */,
 				33E3E00A1A8618D20086DCA8 /* searchBtn@2x.png in Resources */,
@@ -1366,6 +1383,7 @@
 				336B8E871A231D6500685FA3 /* whiteArrow.png in Resources */,
 				33F2EDC91A88EA33000905E7 /* read_msg@2x.png in Resources */,
 				338BCE711B9055D000374955 /* adwo_videoCloseBtnBig.png in Resources */,
+				3335156E1BA29E67001B7D0A /* reading_background.png in Resources */,
 				338BCE801B9055D000374955 /* adwo_videoSoundBig.png in Resources */,
 				33C2B42F1A2316C900054135 /* InfoPlist.strings in Resources */,
 				338BCE7A1B9055D000374955 /* adwo_videoMute.png in Resources */,
@@ -1419,16 +1437,17 @@
 				330CEBA51A2DBAB600D69A2D /* SJBookRecode.m in Sources */,
 				04C6C7F31B0253A100ACA4D1 /* SJRankCell.m in Sources */,
 				33E3E0051A860FB50086DCA8 /* SJBookCell.m in Sources */,
-				3301F54B1A306425008F29CF /* SJReadCell.m in Sources */,
 				338BCE4B1B9055D000374955 /* CJSONDeserializer_BlocksExtensions.m in Sources */,
 				045B40A51AC17E1700F10715 /* SJSearchBookCell.m in Sources */,
 				338BCE531B9055D000374955 /* ioapi.c in Sources */,
 				338BCE551B9055D000374955 /* unzip.c in Sources */,
 				0473C7381A73F55900C2C245 /* SJBookReadPageViewController.m in Sources */,
 				339F36601A8B3F4800279D47 /* SJRankService.m in Sources */,
+				333515691BA272FD001B7D0A /* SJBookCacheQueue.m in Sources */,
 				338BCE491B9055D000374955 /* CDataScanner.m in Sources */,
 				338FF31B1A25822B00F36A6F /* NSString+SJString.m in Sources */,
 				338BCE501B9055D000374955 /* CJSONDeserializer.m in Sources */,
+				335D079F1BA2FA7000248710 /* SJReadingStatusBarView.m in Sources */,
 				04F890361B11776900DEA5F3 /* UITextField+SJTextField.m in Sources */,
 				33AFF1401A85E5B100DDB128 /* SJTabSwitchViewController.m in Sources */,
 				33C5146E1A2318DC00D417FC /* SJIndexView.m in Sources */,
@@ -1463,6 +1482,7 @@
 				339F36531A8AF9D800279D47 /* SJCatalogCell.m in Sources */,
 				33BE81431AB06D1700F8774B /* SJQidianBook.m in Sources */,
 				339F365D1A8B3EA600279D47 /* SJRankView.m in Sources */,
+				335D07A21BA305D500248710 /* SJBatteryImageView.m in Sources */,
 				332214811AAF21760080F762 /* SJRankURLRequest.m in Sources */,
 				3376A0DD1A70D2820023F367 /* SJBookRead.m in Sources */,
 				338BCE511B9055D000374955 /* CJSONScanner.m in Sources */,
@@ -1473,6 +1493,7 @@
 				3311EAD41A23179F0040D79F /* UIColor+SJColor.m in Sources */,
 				330CEBA61A2DBAB600D69A2D /* SJSettingRecode.m in Sources */,
 				338BCE431B9055D000374955 /* AdMoGoAdapterBaiduMobAd.m in Sources */,
+				3335156C1BA27356001B7D0A /* SJBookCacheOperation.m in Sources */,
 				333C5B331A3AD82100326EF8 /* SJBookURLRequest.m in Sources */,
 				338BCE421B9055D000374955 /* AdMoGoAdapterBaiduFullAds.m in Sources */,
 				330CEBA41A2DBAB600D69A2D /* DataBaseIO.m in Sources */,
@@ -1501,7 +1522,6 @@
 				338BCE5B1B9055D000374955 /* AdsMogoAdapterAdwoVideoAd.m in Sources */,
 				3301F5481A306410008F29CF /* SJCell.m in Sources */,
 				336B8E8E1A23375F00685FA3 /* SJBook.m in Sources */,
-				3301F5421A305702008F29CF /* KDBook.m in Sources */,
 				33CF2E461A2EF90800B270BA /* NSArray+SJArray.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

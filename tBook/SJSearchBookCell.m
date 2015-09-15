@@ -109,21 +109,24 @@
 #pragma mark - 其他方法
 
 -(void)loadBook:(SJBook *)book{
+    NSString *desc=book.desc.length>150?[[book.desc substringWithRange:NSMakeRange(0, 150)]stringByAppendingString:@"…"]:book.desc;
+    
     self.bookCoverImageView.imageURL=[NSURL URLWithString:book.imgUrl];
     self.bookTitleLabel.text=book.name;
     self.bookAuthorLabel.text=book.author;
     self.bookLastUpdateDateLabel.text=book.lastChapterName;
-    self.bookDescLabel.text=book.desc;
+    self.bookDescLabel.text=desc;
     
-    CGFloat height=[book.desc sizeWithFont:self.bookDescLabel.font constrainedToSize:CGSizeMake(WIDTH-20, 999)].height;
+    CGFloat height=[desc sizeWithFont:self.bookDescLabel.font constrainedToSize:CGSizeMake(WIDTH-20, 999)].height;
     [self.bookDescLabel quicklySetHeight:height];
     [self.lineView quicklySetOriginY:height+95+9];
 }
 
 +(CGFloat)cellHeightWithBook:(SJBook*)book{
     SJSearchBookCell *t=[[SJSearchBookCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    NSString *desc=book.desc.length>150?[[book.desc substringWithRange:NSMakeRange(0, 150)]stringByAppendingString:@"…"]:book.desc;
     
-    CGFloat height=[book.desc sizeWithFont:t.bookDescLabel.font constrainedToSize:CGSizeMake(WIDTH-20, 999)].height;
+    CGFloat height=[desc sizeWithFont:t.bookDescLabel.font constrainedToSize:CGSizeMake(WIDTH-20, 999)].height;
     
     return height+95+10;
 }

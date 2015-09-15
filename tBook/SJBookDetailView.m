@@ -141,7 +141,7 @@
 -(UILabel *)descLabel{
     if (!_descLabel) {
         _descLabel=[[UILabel alloc]initWithFrame:_descLabelRect];
-        [_descLabel quicklySetFontPoint:12 textColorHex:@"313746" textAlignment:NSTextAlignmentNatural lineBreakMode:NSLineBreakByWordWrapping];
+        [_descLabel quicklySetFontPoint:12 textColorHex:@"313746" textAlignment:NSTextAlignmentLeft lineBreakMode:NSLineBreakByWordWrapping];
     }
     return _descLabel;
 }

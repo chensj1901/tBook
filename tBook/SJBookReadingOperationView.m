@@ -47,7 +47,7 @@
 }
 
 -(void)loadSetting{
-    NSInteger btnCount=5;
+    NSInteger btnCount=4;
     CGFloat ios7Offset=20.;
     
     _navigationBarViewRect= CGRectMake(0, 0, WIDTH, 44+ios7Offset);
@@ -59,19 +59,19 @@
     _blackModeSwitchBtnRect= CGRectMake(WIDTH/btnCount*2, 0, WIDTH/btnCount, 50);
     _progressBtnRect= CGRectMake(WIDTH/btnCount*3, 0, WIDTH/btnCount, 50);
     _commentBtnRect= CGRectMake(WIDTH/btnCount*3, 0, WIDTH/btnCount, 50);
-    _sourceWebsiteBtnRect= CGRectMake(WIDTH/btnCount*4, 0, WIDTH/btnCount, 50);
+    _sourceWebsiteBtnRect= CGRectMake(WIDTH/btnCount*3, 0, WIDTH/btnCount, 50);
 }
 
 -(void)loadUI{
     [self addSubview:self.navigationBarView];
     [self.navigationBarView addSubview:self.backBtn];
-    [self.navigationBarView addSubview:self.moreBtn];
+//    [self.navigationBarView addSubview:self.moreBtn];
     [self addSubview:self.toolbarView];
     [self.toolbarView addSubview:self.catalogBtn];
     [self.toolbarView addSubview:self.listenBtn];
     [self.toolbarView addSubview:self.blackModeSwitchBtn];
 //    [self.toolbarView addSubview:self.progressBtn];
-    [self.toolbarView addSubview:self.commentBtn];
+//    [self.toolbarView addSubview:self.commentBtn];
     [self.toolbarView addSubview:self.sourceWebsiteBtn];
 }
 
@@ -175,9 +175,9 @@
     if (!_sourceWebsiteBtn) {
         _sourceWebsiteBtn=[UIButton buttonWithType:UIButtonTypeCustom];
         _sourceWebsiteBtn.frame=_sourceWebsiteBtnRect;
-//        [_sourceWebsiteBtn quicklySetNormalImageNamed:<#(NSString *)#> highlightImageNamed:<#(NSString *)#> selectedImageNamed:<#(NSString *)#>];
-        [_sourceWebsiteBtn quicklySetFontPoint:11 textColorHex:@"373146" textAlignment:NSTextAlignmentCenter title:@"源网站"];
-        [_sourceWebsiteBtn quicklyTopImageBottomTitleType:SJButtonImagePositionTypeTop padding:5 topY:5];
+        [_sourceWebsiteBtn quicklySetFontPoint:11 textColorHex:@"373146" textAlignment:NSTextAlignmentCenter title:@"源网站阅读\n"];
+        _sourceWebsiteBtn.titleLabel.numberOfLines=2;
+//        [_sourceWebsiteBtn quicklyTopImageBottomTitleType:SJButtonImagePositionTypeTop padding:5 topY:5];
     }
     return _sourceWebsiteBtn;
 }

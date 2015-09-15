@@ -44,6 +44,7 @@
 }
 
 -(void)loadUI{
+    
     [self addSubview:self.backgroundView];
     [self.searchbarView addSubview:self.searchBtn];
     [self.searchbarView addSubview:self.searchTextField];
@@ -88,6 +89,10 @@
 -(PullTableView *)resultTableView{
     if (!_resultTableView) {
         _resultTableView=[[PullTableView alloc]initWithFrame:_resultTableViewRect loadMoreSwitch:YES refreshSwitch:YES];
+        
+        if (IS_IOS7()) {
+            _resultTableView.contentInset=UIEdgeInsetsMake(34, 0, 0, 0);
+        }
     }
     return _resultTableView;
 }

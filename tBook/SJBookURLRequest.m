@@ -51,6 +51,14 @@
 
 }
 
++(void)apiLoadSearchHintBooksWithKeyWord:(NSString*)keyWorld success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
+    
+    NSString *urlStr=[NSString stringWithFormat:@"http://api.easou.com/api/bookapp/input_hint.m?word=%@&cid=eef_&version=002&os=ipad&udid=%@&appverion=1001&ch=blf1298_12414_001",[keyWorld stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],self.udid];
+    SJHTTPRequestOperationManager *manager=[SJHTTPRequestOperationManager manager];
+    [manager GET:urlStr parameters:nil cacheMethod:SJCacheMethodNone success:success failure:failure];
+}
+
+
 +(NSString *)udid{
     return  [[UIDevice currentDevice].identifierForVendor.UUIDString md5Encode];
 }

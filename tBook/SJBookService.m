@@ -10,7 +10,7 @@
 #import "SJBookChapter.h"
 #import "SJBookRecode.h"
 #import "SJBookChapterReadRecode.h"
-#import "SJReadCell.h"
+//#import "SJReadCell.h"
 #import "SJHTTPRequestOperationManager.h"
 #import "SJBookURLRequest.h"
 #import "SJBookChapterRecode.h"
@@ -70,6 +70,25 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (error) {
+            fail(error);
+        }
+    }];
+}
+
+-(void)loadSearchHintWithKey:(NSString *)keyWord success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail{
+    [SJBookURLRequest apiLoadSearchHintBooksWithKeyWord:keyWord success:^(AFHTTPRequestOperation  *operation, id responseObject) {
+        [self.searchHintBooks removeAllObjects];
+        
+        for (NSString *bookName in [responseObject safeObjectForKey:@"items"]) {
+            SJBook *book=[[SJBook alloc]init];
+            book.name=bookName;
+            [self.searchHintBooks addObject:bookName];
+        }
+        if(success){
+            success();
+        }
+    } failure:^(AFHTTPRequestOperation *op, NSError *error) {
         if (error) {
             fail(error);
         }
@@ -164,110 +183,31 @@
 }
 
 -(void)loadContentWithChapter:(SJBookChapter *)chapter book:(SJBook *)book success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail{
-    [SJBookURLRequest apiLoadContentWithChapter:chapter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSString *text=[responseObject objectForKey:@"content"];
-        
-        NSArray *pages=[self getPagesOfString:text withFont:[UIFont systemFontOfSize:[[SJSettingRecode getSet:@"textFont"]intValue]] inRect:CGRectMake(0, 0, WIDTH-20, HEIGHT-28)];
-        
-        [[text dataUsingEncoding:NSUTF8StringEncoding]writeToFile:chapter.filePathWithThisChapter atomically:YES];
-        
-        [chapter.pageArr removeAllObjects];
-        [chapter.pageArr addObjectsFromArray:pages];
-//        __weak SJBookService*__self=self;
-        
-        
-//        self.book=[[KDBook alloc]initWithBook:chapter.filePathWithThisChapter successBlock:^{
-//            chapter.kdBook=__self.book;
-            if (success) {
-                success();
-            }
-//        }];
-//        self.book.bookChapterName=chapter.chapterName;
-//        
-//        SJReadCell *sizeTestCell=[[SJReadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-//        self.book.pageSize =sizeTestCell.bookContentLabel.bounds.size; //bookLabel.frame.size;
-//        self.book.textFont = sizeTestCell.bookContentLabel.font;
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (fail) {
-            fail(error);
-        }
-    }];
-
+    [self loadContentWithChapter:chapter book:book shouldFormatPage:YES success:success fail:fail];
 }
 
--(void)loadContentWithChapter:(SJBookChapter*)chapter book:(SJBook*)book  success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail nextSuccess:(SJServiceSuccessBlock)nextSuccess previousSuccess:(SJServiceSuccessBlock)preSuccess{
+-(void)loadContentWithChapter:(SJBookChapter *)chapter book:(SJBook *)book shouldFormatPage:(BOOL)shouldFormatPage success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail{
     
     [SJBookChapterReadRecode insertBookChapter:chapter];
-    
-    
     [SJBookURLRequest apiLoadContentWithChapter:chapter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSString *text=[[[responseObject objectForKey:@"items"]objectAtIndex:0] objectForKey:@"content"];
-        
-        [[text dataUsingEncoding:NSUTF8StringEncoding]writeToFile:chapter.filePathWithThisChapter atomically:YES];
-        
-        self.book=[[KDBook alloc]initWithBook:chapter.filePathWithThisChapter successBlock:^{
-            if (success) {
-                success();
-            }
-        }];
-        self.book.bookChapterName=chapter.chapterName;
-        
-        SJReadCell *sizeTestCell=[[SJReadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        self.book.pageSize =sizeTestCell.bookContentLabel.bounds.size; //bookLabel.frame.size;
-        self.book.textFont = sizeTestCell.bookContentLabel.font;
-        
-        
+        if (shouldFormatPage) {
+            NSString *text=[responseObject objectForKey:@"content"];
+            NSArray *pages=[self getPagesOfString:text withFont:[UIFont systemFontOfSize:[[SJSettingRecode getSet:@"textFont"]intValue]] inRect:CGRectMake(0, 0, WIDTH-20, HEIGHT-60)];
+            
+            [[text dataUsingEncoding:NSUTF8StringEncoding]writeToFile:chapter.filePathWithThisChapter atomically:YES];
+            [chapter.pageArr removeAllObjects];
+            [chapter.pageArr addObjectsFromArray:pages];
+        }
+        if (success) {
+            success();
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (fail) {
             fail(error);
         }
     }];
-    
-    
-    // 更新附近两章缓存
-    [self updateNextOrPreviousChapterWithChapter:chapter book:book success:^{
-        [SJBookURLRequest apiLoadContentWithChapter:self.previousChapter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString *text=[[[responseObject objectForKey:@"items"]objectAtIndex:0] objectForKey:@"content"];
-            
-            [[text dataUsingEncoding:NSUTF8StringEncoding]writeToFile:self.previousChapter.filePathWithThisChapter atomically:YES];
-            
-            self.previousBook=[[KDBook alloc]initWithBook:self.previousChapter.filePathWithThisChapter successBlock:^{
-                if (preSuccess) {
-                    preSuccess();
-                }
-            }];
-            self.previousBook.bookChapterName=self.previousChapter.chapterName;
-            SJReadCell *sizeTestCell=[[SJReadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            self.previousBook.pageSize =sizeTestCell.bookContentLabel.bounds.size; //bookLabel.frame.size;
-            self.previousBook.textFont = sizeTestCell.bookContentLabel.font;
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        }];
-        [SJBookURLRequest apiLoadContentWithChapter:self.nextChapter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString *text=[[[responseObject objectForKey:@"items"]objectAtIndex:0] objectForKey:@"content"];
-            
-            [[text dataUsingEncoding:NSUTF8StringEncoding]writeToFile:self.nextChapter.filePathWithThisChapter atomically:YES];
-            
-            self.nextBook=[[KDBook alloc]initWithBook:self.nextChapter.filePathWithThisChapter successBlock:^{
-                if (nextSuccess) {
-                    nextSuccess();
-                }
-            }];
-            self.nextBook.bookChapterName=self.nextChapter.chapterName;
-            
-            SJReadCell *sizeTestCell=[[SJReadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            self.nextBook.pageSize =sizeTestCell.bookContentLabel.bounds.size; //bookLabel.frame.size;
-            self.nextBook.textFont = sizeTestCell.bookContentLabel.font;
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        }];
-    } fail:^(NSError *error) {
-    }];
-}
 
+}
 
 -(void)loadBookChapterWithBook:(SJBook*)book cacheMethod:(SJCacheMethod)cacheMethod  success:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail{
     [SJBookURLRequest apiLoadBookChapterWithBook:book cacheMethod:cacheMethod success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -297,6 +237,8 @@
 }
 
 -(void)loadLocalBooksWithSuccess:(SJServiceSuccessBlock)success fail:(SJServiceFailBlock)fail{
+    [self.locaBooks removeAllObjects];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *bookDicArr=[SJBookRecode getBooks];
         for (NSDictionary *bookDic in bookDicArr) {
@@ -345,6 +287,13 @@
 
 }
 
+-(NSMutableArray *)searchHintBooks{
+    if (!_searchHintBooks) {
+        _searchHintBooks=[NSMutableArray new];
+    }
+    return _searchHintBooks;
+}
+
 -(NSMutableArray *)locaBooks{
     if (!_locaBooks) {
         _locaBooks=[[NSMutableArray alloc]init];
@@ -371,7 +320,10 @@
    return  [[UIDevice currentDevice].identifierForVendor.UUIDString md5Encode];
 }
 
-
+-(void)deleteLocalBookWithBook:(SJBook *)book{
+    [self.locaBooks removeObject:book];
+    [SJBookRecode deleteBook:book.nid];
+}
 
 @end
 

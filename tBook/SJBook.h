@@ -15,7 +15,7 @@
 /**
  *	@brief "名字",
  */
-@property(nonatomic,readonly)NSString *name;
+@property(nonatomic)NSString *name;
 
 /**
  *	@brief "类型",

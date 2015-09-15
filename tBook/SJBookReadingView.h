@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "SJBookReadingOperationView.h"
+#import "SJBook.h"
+#import "SJReadingStatusBarView.h"
+#import "SJBatteryImageView.h"
 
 @interface SJBookReadingView : UIView
-@property(nonatomic,readonly)UIView *backgroundView;
+@property(nonatomic,readonly)UIImageView *backgroundView;
 @property(nonatomic,readonly)UILabel *bookTitleLabel;
 @property(nonatomic,readonly)UILabel *bookContentLabel;
+@property(nonatomic,readonly)SJReadingStatusBarView *readingStatusBarView;
 @property(nonatomic,readonly)SJBookReadingOperationView *operationView;
+@property(nonatomic,readonly)SJBatteryImageView *batteryImageView;
 @end

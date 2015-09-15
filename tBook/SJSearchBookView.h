@@ -16,5 +16,6 @@
 @property(nonatomic,readonly)UIButton *searchBtn;
 @property(nonatomic,readonly)SJSearchBar *searchBar;
 @property(nonatomic,readonly)PullTableView *resultTableView;
+@property(nonatomic,readonly)UITableView *searchHintTableView;
 
 @end

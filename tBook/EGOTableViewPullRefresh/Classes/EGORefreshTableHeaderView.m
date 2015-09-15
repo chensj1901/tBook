@@ -37,6 +37,7 @@
     CGRect _waitingImageViewRect;
     CGRect _waitingLoadingImageViewRect;
     CGRect _waitingPullImageViewRect;
+    BOOL _hasInit;
 }
 
 @synthesize delegate=_delegate;
@@ -477,6 +478,10 @@
 
 - (void)egoRefreshScrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
+    if (!_hasInit) {
+        _hasInit=YES;
+        _defaultEdgeInsets=scrollView.contentInset;
+    }
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideImageViews) object:nil];
     self.waitingImageView.hidden=NO;
     self.waitingLoadingImageView.hidden=YES;

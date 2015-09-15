@@ -32,7 +32,11 @@
 	// Do any additional setup after loading the view.
     [self loadData];
     
+    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+   
 }
+
+
 
 -(void)loadTarget{
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showToolBar)];
@@ -51,10 +55,11 @@
 }
 
 -(void)loadUI{
-    UIBarButtonItem *one = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
-    UIBarButtonItem *two = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:nil action:nil];
-    UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [self.navigationController setToolbarItems:[NSArray arrayWithObjects:flexItem, one, flexItem, two, flexItem, nil]];
+//    UIBarButtonItem *one = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
+//    UIBarButtonItem *two = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:nil action:nil];
+//    UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//    [self.navigationController setToolbarItems:[NSArray arrayWithObjects:flexItem, one, flexItem, two, flexItem, nil]];
+    
 }
 
 -(void)showToolBar{
@@ -93,6 +98,7 @@
 -(SJBookReadingView *)mainView{
     if (!_mainView) {
         _mainView=[[SJBookReadingView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+        [_mainView.operationView.sourceWebsiteBtn setTitle:[NSString stringWithFormat:@"源网站阅读\n%@",self.book.site] forState:UIControlStateNormal];
     }
     return _mainView;
 }
@@ -106,15 +112,16 @@
 }
 
 -(void)reloadContent{
+    [UIDevice currentDevice].batteryMonitoringEnabled = YES;
+    double deviceLevel = [UIDevice currentDevice].batteryLevel;
+
     NSString *string=[NSString stringWithContentsOfFile:self.bookChapter.filePathWithThisChapter encoding:NSUTF8StringEncoding error:nil];
     NSString *thisContent=[string substringWithRange:[[self.bookChapter.pageArr safeObjectAtIndex:self.bookChapter.pageIndex]rangeValue]];
     self.mainView.bookContentLabel.text=thisContent;
+    [self.mainView.readingStatusBarView loadChapter:self.bookChapter];
+    [self.mainView.batteryImageView setElectricityValue:deviceLevel];
 }
 
--(void)loadContentWithKDBook:(KDBook*)kdBook{
-    self.mainView.bookContentLabel.text=[kdBook stringWithPage:self.bookChapter.pageIndex];
-    [SJBookChapterReadRecode insertBookChapter:self.bookChapter];
-}
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
 
