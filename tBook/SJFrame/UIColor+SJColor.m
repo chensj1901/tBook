@@ -29,4 +29,11 @@
     
     return [UIColor colorWithRed:(float)(red/255.0f) green:(float)(green / 255.0f) blue:(float)(blue / 255.0f) alpha:1.0f];
 }
+
+-(NSString *)colorHex{
+    const CGFloat *components=CGColorGetComponents(self.CGColor);
+    NSString *colorHex=[NSString stringWithFormat:@"%02x%02x%02x",(int)(components[0]*0xff),(int)(components[1]*0xff),(int)(components[2]*0xff)];
+    return colorHex;
+}
+
 @end

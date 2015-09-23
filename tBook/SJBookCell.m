@@ -121,7 +121,9 @@
 -(void)loadBook:(SJBook *)book{
     self.bookCoverImageView.imageURL=[NSURL URLWithString:book.imgUrl];
     self.bookTitleLabel.text=book.name;
-    self.bookDescLabel.text=book.lastChapterName;
+    if(book.lastChapterName.length>0){
+        self.bookDescLabel.text=book.isLoadingLastChapterName?@"最新章节：正在查询":[NSString stringWithFormat:@"最新章节：%@",book.lastChapterName];
+    }
 }
 
 +(CGFloat)cellHeight{

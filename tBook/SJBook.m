@@ -36,7 +36,7 @@
     if (self=[super init]) {
         _name=qidianBook.bookName;
         _author=qidianBook.AuthorName;
-        _lastChapterName=qidianBook.isVip?qidianBook.lastVipUpdateChapterName:qidianBook.lastUpdateChapterName;
+        _lastChapterName=qidianBook.lastVipUpdateChapterName.length>0?qidianBook.lastVipUpdateChapterName:qidianBook.lastUpdateChapterName;
         _imgUrl=[NSString stringWithFormat:@"http://image.cmfu.com/books/%ld/%ld.jpg",(long)qidianBook.bookId,(long)qidianBook.bookId];
         
     }

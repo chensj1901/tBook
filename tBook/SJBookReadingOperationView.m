@@ -29,7 +29,7 @@
 @synthesize toolbarView=_toolbarView;
 @synthesize catalogBtn=_catalogBtn;
 @synthesize listenBtn=_listenBtn;
-@synthesize blackModeSwitchBtn=_blackModeSwitchBtn;
+@synthesize blackOrDayModeSwitchBtn=_blackOrDayModeSwitchBtn;
 @synthesize progressBtn=_progressBtn;
 @synthesize commentBtn=_commentBtn;
 @synthesize sourceWebsiteBtn=_sourceWebsiteBtn;
@@ -65,11 +65,11 @@
 -(void)loadUI{
     [self addSubview:self.navigationBarView];
     [self.navigationBarView addSubview:self.backBtn];
-//    [self.navigationBarView addSubview:self.moreBtn];
+    [self.navigationBarView addSubview:self.moreBtn];
     [self addSubview:self.toolbarView];
     [self.toolbarView addSubview:self.catalogBtn];
     [self.toolbarView addSubview:self.listenBtn];
-    [self.toolbarView addSubview:self.blackModeSwitchBtn];
+    [self.toolbarView addSubview:self.blackOrDayModeSwitchBtn];
 //    [self.toolbarView addSubview:self.progressBtn];
 //    [self.toolbarView addSubview:self.commentBtn];
     [self.toolbarView addSubview:self.sourceWebsiteBtn];
@@ -139,15 +139,16 @@
     return _listenBtn;
 }
 
--(UIButton *)blackModeSwitchBtn{
-    if (!_blackModeSwitchBtn) {
-        _blackModeSwitchBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-        _blackModeSwitchBtn.frame=_blackModeSwitchBtnRect;
-        [_blackModeSwitchBtn quicklySetFontPoint:11 textColorHex:@"373146" textAlignment:NSTextAlignmentCenter title:@"夜间模式"];
-        [_blackModeSwitchBtn quicklySetNormalImageNamed:@"read_darkMode.png" highlightImageNamed:nil selectedImageNamed:nil];
-        [_blackModeSwitchBtn quicklyTopImageBottomTitleType:SJButtonImagePositionTypeTop padding:5 topY:5];
+-(UIButton *)blackOrDayModeSwitchBtn{
+    if (!_blackOrDayModeSwitchBtn) {
+        _blackOrDayModeSwitchBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+        _blackOrDayModeSwitchBtn.frame=_blackModeSwitchBtnRect;
+        [_blackOrDayModeSwitchBtn quicklySetFontPoint:11 textColorHex:@"373146" textAlignment:NSTextAlignmentCenter title:@"夜间模式"];
+        [_blackOrDayModeSwitchBtn quicklySetNormalImageNamed:@"read_darkMode.png" highlightImageNamed:nil selectedImageNamed:@"read_dayMode.png"];
+        [_blackOrDayModeSwitchBtn setTitle:@"正常模式" forState:UIControlStateSelected];
+        [_blackOrDayModeSwitchBtn quicklyTopImageBottomTitleType:SJButtonImagePositionTypeTop padding:5 topY:5];
     }
-    return _blackModeSwitchBtn;
+    return _blackOrDayModeSwitchBtn;
 }
 
 -(UIButton *)progressBtn{

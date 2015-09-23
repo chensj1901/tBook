@@ -19,4 +19,7 @@
 @property(nonatomic)UIButton *readBtn;
 @property(nonatomic)SJCatalogViewController *catalogVC;
 @property(nonatomic)UIView *readMaskView;
+@property(nonatomic)BOOL shouldReloadBook;
+@property(nonatomic)NSString *readingText;
+
 @end

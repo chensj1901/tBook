@@ -64,9 +64,15 @@
 -(void)reloadLocationBooks{
     [self.bookService loadLocalBooksWithSuccess:^{
         [self.mainView.resultTableView reloadData];
+        SJBook *book=[self.bookService.locaBooks safeObjectAtIndex:0];
+        
+        if(book&&book.isLoadingLastChapterName){
+            [self reloadLastChapters];
+        }
     } fail:^(NSError *error) {
         
     }];
+    
 }
 
 -(SJBookService *)bookService{
@@ -86,6 +92,30 @@
         [self.mainView.resultTableView beginUpdates];
         [self.mainView.resultTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.mainView.resultTableView endUpdates];
+    }
+}
+
+-(void)reloadLastChapters{
+    for (SJBook *book in self.bookService.locaBooks) {
+        [self.bookService loadBookChapterWithBook:book cacheMethod:SJCacheMethodFail success:^{
+            SJBookChapter *lastChapter=[self.bookService.bookChapters lastObject];
+            book.lastChapterName=lastChapter.chapterName;
+            book.isLoadingLastChapterName=NO;
+            
+            NSInteger index=[self.bookService.locaBooks indexOfObject:book];
+            @try {
+                [self.mainView.resultTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            }
+            @catch (NSException *exception) {
+                
+            }
+            @finally {
+                
+            }
+        } fail:^(NSError *error) {
+            
+        }];
+        NSLog(@"%@",book);
     }
 }
 

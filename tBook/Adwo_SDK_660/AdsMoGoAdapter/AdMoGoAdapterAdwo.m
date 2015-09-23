@@ -12,6 +12,7 @@
 #import "AdMoGoConfigDataCenter.h"
 #import "AdMoGoAdSDKBannerNetworkRegistry.h"
 
+ADWO_SDK_WITHOUT_PASSKIT_FRAMEWORK(...)
 
 extern BOOL AWSetAGGChannel(UIView *adView, enum ADWOSDK_AGGREGATION_CHANNEL channel);
 

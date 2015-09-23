@@ -44,16 +44,16 @@
     _searchBarRect= CGRectMake(5, 5+ios7Offset, SELF_WIDTH-65, 30);
     _searchBtnRect= CGRectMake(SELF_WIDTH-55, 5+ios7Offset, 50, 30);
     _resultTableViewRect= CGRectMake(0,44+ios7Offset, SELF_WIDTH, SELF_HEIGHT-64);
-    _searchHintTableViewRect= CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+    _searchHintTableViewRect= CGRectMake(5, CGRectGetMaxY(_searchbarViewRect), SELF_WIDTH-65, 0);
 }
 
 -(void)loadUI{
     [self addSubview:self.backgroundView];
     [self.backgroundView addSubview:self.searchbarView];
-    [self.backgroundView addSubview:self.searchHintTableView];
     [self.searchbarView addSubview:self.searchBtn];
     [self.searchbarView addSubview:self.searchBar];
     [self.backgroundView addSubview:self.resultTableView];
+    [self.backgroundView addSubview:self.searchHintTableView];
 }
 
 #pragma mark - 属性定义
@@ -86,6 +86,7 @@
 -(SJSearchBar *)searchBar{
     if (!_searchBar) {
         _searchBar=[[SJSearchBar alloc]initWithFrame:_searchBarRect];
+        _searchBar.placeholder=@"请输入书名,搜索引擎:easou.com";
 //        _searchTextField.backgroundColor=[UIColor colorWithHex:@"ffffff"];
     }
     return _searchBar;
@@ -101,7 +102,12 @@
 
 -(UITableView *)searchHintTableView{
     if (!_searchHintTableView) {
-        _searchHintTableView=[[UITableView alloc]initWithFrame:_searchBarRect];
+        _searchHintTableView=[[UITableView alloc]initWithFrame:_searchHintTableViewRect];
+        _searchHintTableView.backgroundColor=[UIColor whiteColor];
+        _searchHintTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+        _searchHintTableView.layer.borderWidth=1;
+        _searchHintTableView.layer.borderColor=[[UIColor colorWithHex:@"a1a1a1"]CGColor];
+        _searchHintTableView.hidden=YES;
     }
     return _searchHintTableView;
 }

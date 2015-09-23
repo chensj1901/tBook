@@ -45,7 +45,7 @@
 -(void)loadSetting{
     _backgroundViewRect=CGRectMake(0, 0, WIDTH, HEIGHT);
     _bookTitleLabelRect= CGRectMake(0, 0, WIDTH, 12);
-    _bookContentLabelRect= CGRectMake(10, 35, WIDTH-20, HEIGHT-60);
+    _bookContentLabelRect= CGRectMake(10, 30, WIDTH-20, HEIGHT-60);
     _readingStatusBarViewRect= CGRectMake(0, 0, WIDTH, 30);
     _operationViewRect= CGRectMake(0, 0, WIDTH, HEIGHT);
     _batteryImageViewRect= CGRectMake((WIDTH-39)/2, HEIGHT-27.5, 39, 25);
@@ -75,7 +75,6 @@
 -(UILabel *)bookContentLabel{
     if (!_bookContentLabel) {
         _bookContentLabel=[[UILabel alloc]initWithFrame:_bookContentLabelRect];
-        [_bookContentLabel quicklySetFontPoint:[[SJSettingRecode getSet:@"textFont"]intValue] textColorHex:@"313746" textAlignment:NSTextAlignmentLeft];
         _bookContentLabel.numberOfLines=0;
         _bookContentLabel.lineBreakMode=NSLineBreakByWordWrapping;
         _bookContentLabel.userInteractionEnabled=NO;
@@ -88,7 +87,6 @@
     if (!_backgroundView) {
         _backgroundView=[[UIImageView alloc]initWithFrame:_backgroundViewRect];
         _backgroundView.userInteractionEnabled=YES;
-        _backgroundView.image=[UIImage imageNamed:@"reading_background.png"];
 //        _backgroundView.backgroundColor=[UIColor blackColor];
 //        _backgroundView.backgroundColor=[UIColor blackColor];
     }
@@ -115,7 +113,7 @@
 -(SJBatteryImageView *)batteryImageView{
     if (!_batteryImageView) {
         _batteryImageView=[[SJBatteryImageView alloc]initWithFrame:_batteryImageViewRect];
-        _batteryImageView.image=[UIImage imageNamed:@"read_battery.png"];
+        _batteryImageView.transform=CGAffineTransformMakeScale(0.5, 0.5);
     }
     return _batteryImageView;
 }
@@ -126,8 +124,8 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if (object==self.bookContentLabel&&[keyPath isEqualToString:@"text"]) {
-        CGFloat textHeight=[self.bookContentLabel.text sizeWithFont:self.bookContentLabel.font constrainedToSize:CGSizeMake(WIDTH-20, 999)].height;
-        [self.bookContentLabel quicklySetOriginY:20 sizeHeight:textHeight];
+        CGFloat textHeight=[self.bookContentLabel.text sizeWithFont:self.bookContentLabel.font constrainedToSize:CGSizeMake(WIDTH-20, 9999)].height;
+        [self.bookContentLabel quicklySetHeight:textHeight];
     }
 }
 

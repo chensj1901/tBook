@@ -83,7 +83,7 @@
         for (NSString *bookName in [responseObject safeObjectForKey:@"items"]) {
             SJBook *book=[[SJBook alloc]init];
             book.name=bookName;
-            [self.searchHintBooks addObject:bookName];
+            [self.searchHintBooks addObject:book];
         }
         if(success){
             success();
@@ -158,7 +158,7 @@
                             length = length/(2);
                             //						}
                         }else if (labelSize.height > MaxHeigth && length == 1) {
-                            offset = offset-length;
+//                            offset = offset-length;
                             isEndOfFile = YES;
                         }else if(labelSize.height <= MaxHeigth ) {
                             [labelStr appendString:iStr];
@@ -243,6 +243,7 @@
         NSArray *bookDicArr=[SJBookRecode getBooks];
         for (NSDictionary *bookDic in bookDicArr) {
             SJBook *book=[[SJBook alloc]initWithRemoteDictionary:bookDic];
+            book.isLoadingLastChapterName=YES;
             [self.locaBooks addObject:book];
             
             NSDictionary *bookChapterDic=[SJBookChapterReadRecode getBookChapterByNid:book.nid];

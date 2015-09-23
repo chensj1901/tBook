@@ -13,4 +13,5 @@
 @property(nonatomic,readonly)UILabel *chapterNameLabel;
 @property(nonatomic,readonly)UILabel *timeLabel;
 -(void)loadChapter:(SJBookChapter *)bookChapter;
+-(void)refreshUI;
 @end

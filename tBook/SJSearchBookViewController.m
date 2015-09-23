@@ -11,6 +11,7 @@
 #import "SJBookService.h"
 #import "SJSearchBookCell.h"
 #import "SJBookDetailViewController.h"
+#import "SJSearchHitCell.h"
 
 @interface SJSearchBookViewController ()<UITableViewDelegate,UITableViewDataSource,PullTableViewDelegate,UITextFieldDelegate>
 
@@ -40,6 +41,18 @@
     self.mainView.resultTableView.delegate=self;
     self.mainView.resultTableView.dataSource=self;
     self.mainView.resultTableView.pullDelegate=self;
+    self.mainView.searchBar.delegate=self;
+}
+
+-(void)loadUI{
+    
+    self.mainView.resultTableView.delegate=self;
+    self.mainView.resultTableView.dataSource=self;
+    self.mainView.resultTableView.pullDelegate=self;
+    
+    self.mainView.searchHintTableView.delegate=self;
+    self.mainView.searchHintTableView.dataSource=self;
+    
     self.mainView.searchBar.delegate=self;
 }
 
@@ -90,7 +103,8 @@
     UITextField *textField=notification.object;
     if (textField.selectedRange.length==0) {
         [self.bookService loadSearchHintWithKey:textField.text success:^{
-            
+            self.mainView.searchHintTableView.hidden=NO;
+            [self.mainView.searchHintTableView reloadData];
         } fail:^(NSError *error) {
             
         }];
@@ -99,30 +113,58 @@
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self.bookService.searchResultBooks count];
+    if (tableView==self.mainView.searchHintTableView) {
+        [self.mainView.searchHintTableView quicklySetHeight:[self.bookService.searchHintBooks count]*[SJSearchHitCell cellHeight]];
+        return [self.bookService.searchHintBooks count];
+    }else{
+        return [self.bookService.searchResultBooks count];
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SJBook *book=[self.bookService.searchResultBooks objectAtIndex:indexPath.row];
-    static NSString *cellId=@"SJBOOKCELL";
-    SJSearchBookCell *bookCell=[tableView dequeueReusableCellWithIdentifier:cellId];
-    if (!bookCell) {
-        bookCell=[[SJSearchBookCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    if(tableView==self.mainView.searchHintTableView){
+        SJBook *book=[self.bookService.searchHintBooks objectAtIndex:indexPath.row];
+        static NSString *cellId=@"SJSearchHitCell";
+        SJSearchHitCell *cell=[self.mainView.searchHintTableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell=[[SJSearchHitCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        }
+        [cell loadBook:book];
+        return cell;
+        
+    }else{
+        SJBook *book=[self.bookService.searchResultBooks objectAtIndex:indexPath.row];
+        static NSString *cellId=@"SJBOOKCELL";
+        SJSearchBookCell *bookCell=[tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!bookCell) {
+            bookCell=[[SJSearchBookCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        }
+        [bookCell loadBook:book];
+        return bookCell;
     }
-    [bookCell loadBook:book];
-    return bookCell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    SJBook *book=[self.bookService.searchResultBooks objectAtIndex:indexPath.row];
-    SJBookDetailViewController *bookDetailVC=[[SJBookDetailViewController alloc]init];
-    bookDetailVC.book=book;
-    [self.navigationController pushViewController:bookDetailVC animated:YES];
+    if (tableView==self.mainView.searchHintTableView) {
+        SJBook *book=[self.bookService.searchHintBooks objectAtIndex:indexPath.row];
+        self.mainView.searchBar.text=book.name;
+        self.mainView.searchHintTableView.hidden=YES;
+        [self searchBook];
+    }else{
+        SJBook *book=[self.bookService.searchResultBooks objectAtIndex:indexPath.row];
+        SJBookDetailViewController *bookDetailVC=[[SJBookDetailViewController alloc]init];
+        bookDetailVC.book=book;
+        [self.navigationController pushViewController:bookDetailVC animated:YES];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SJBook *book=[self.bookService.searchResultBooks objectAtIndex:indexPath.row];
-    return [SJSearchBookCell cellHeightWithBook:book];
+    if (tableView==self.mainView.searchHintTableView) {
+        return [SJSearchHitCell cellHeight];
+    }else{
+        SJBook *book=[self.bookService.searchResultBooks objectAtIndex:indexPath.row];
+        return [SJSearchBookCell cellHeightWithBook:book];
+    }
 }
 
 -(void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView{

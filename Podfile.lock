@@ -29,8 +29,9 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
-  - FXBlurView (1.6.3)
-  - MMProgressHUD (0.3.1)
+  - FXBlurView (1.6.4)
+  - MMProgressHUD (0.3.2)
+  - STColorPicker (1.0.0)
 
 DEPENDENCIES:
   - AdsMoGo-iOS-Lib (from `https://github.com/chensj1901/AdsMoGo-iOS-Lib.git`)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - FMDB (~> 2.4)
   - FXBlurView (~> 1.6.3)
   - MMProgressHUD (~> 0.3.1)
+  - STColorPicker (~> 1.0.0)
 
 EXTERNAL SOURCES:
   AdsMoGo-iOS-Lib:
@@ -46,16 +48,17 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AdsMoGo-iOS-Lib:
-    :commit: da303434749ef6f5e031dcffd5520178c6db4991
+    :commit: acf27ed1760ed0121fcfb2ebbebf4a95645894b7
     :git: https://github.com/chensj1901/AdsMoGo-iOS-Lib.git
 
 SPEC CHECKSUMS:
-  AdsMoGo-iOS-Lib: 7fc8d67c53d7724b164911588197feffe143676f
+  AdsMoGo-iOS-Lib: 8ecbc8e56207dccef28121d77b53656da6aee1bd
   AFNetworking: 41d45d2c14219af0fa5addf3cfd433a002c13c9f
   EGOCache: f0295dbe041156acabd39021354ad1045ee49e72
   EGOImageLoading: 99d7c4a9fb5a192ab37979b63ea03efc7097fe8e
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
-  FXBlurView: c6d23f3d35af2c6282296a2930f61c6e2c788d01
-  MMProgressHUD: dac2655d62d28e7d6dc28bf72d9531a4d4c62459
+  FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  MMProgressHUD: a913b116ba6791d67d37f9fb4211079200fb7595
+  STColorPicker: 110b5caf7399b38953f5e22ad3671e5030c2aa5a
 
 COCOAPODS: 0.38.2

@@ -13,13 +13,13 @@
 #import <iflyMSC/IFlySpeechSynthesizerDelegate.h>
 #import "SJBookReadingView.h"
 #import "SJBookChapterRecode.h"
+#import "SJBookReadSettingViewController.h"
 
 @interface SJBookReadPageViewController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate,SJBookReadingViewControllerDelegate,IFlySpeechSynthesizerDelegate,SJCatalogViewControllerDelegate>
 @property(nonatomic)NSArray *bookContentSeparates;
 @property(nonatomic)NSUInteger readIndex;
 @property(nonatomic)IFlySpeechSynthesizer *speechSynthesizer;
 @property(nonatomic)CGFloat nextPagePercent;
-@property(nonatomic)NSString *readingText;
 @property(nonatomic)BOOL shouldBeginRead;
 @property(nonatomic)BOOL hasInit;
 @end
@@ -237,6 +237,12 @@
     }
 }
 
+-(void)showSetVC{
+    self.shouldReloadBook=YES;
+    self.readingText=[self thisPageContent];
+    SJBookReadSettingViewController *setVC=[[SJBookReadSettingViewController alloc]init];
+    [self.navigationController pushViewController:setVC animated:YES];
+}
 
 -(void)stopReading{
     self.shouldBeginRead=NO;
@@ -287,6 +293,10 @@
 
 -(void)bookReadingViewControllerDidShowToolbar:(SJBookReadingViewController *)vc{
     [self stopReading];
+}
+
+-(void)bookReadingViewControllerDidShowSetVC:(SJBookReadingViewController *)vc{
+    [self showSetVC];
 }
 
 -(void)catalogViewControllerDidSelectChapter:(SJBookChapter *)chapter{
@@ -385,6 +395,18 @@
 -(void)viewWillAppear:(BOOL)animated{
 //    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    if (self.shouldReloadBook) {
+        SJBookReadingViewController *bookReadingVC=[[SJBookReadingViewController alloc]init];
+        bookReadingVC.delegate=self;
+        bookReadingVC.book=self.book;
+        bookReadingVC.bookChapter=self.bookChapter;
+        bookReadingVC.bookService=self.bookService;
+        bookReadingVC.readingText=self.readingText;
+        [self setViewControllers:@[bookReadingVC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
+            
+        }];
+    }
 }
 
 

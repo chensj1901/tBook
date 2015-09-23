@@ -65,7 +65,7 @@
 /**
  *	@brief "最新章节",
  */
-@property(nonatomic,readonly)NSString *lastChapterName;
+@property(nonatomic)NSString *lastChapterName;
 
 /**
  *	@brief "章节统计",
@@ -97,6 +97,8 @@
  */
 @property(nonatomic)SJBookChapter *readingChapter;
 
+
+@property(nonatomic)BOOL isLoadingLastChapterName;
 
 -(id)initWithRemoteDictionary:(NSDictionary *)dictionary;
 -(id)initWithQidianBook:(SJQidianBook*)qidianBook;

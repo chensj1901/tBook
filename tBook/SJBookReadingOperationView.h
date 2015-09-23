@@ -16,7 +16,12 @@
 @property(nonatomic,readonly)FXBlurView *toolbarView;
 @property(nonatomic,readonly)UIButton *catalogBtn;
 @property(nonatomic,readonly)UIButton *listenBtn;
-@property(nonatomic,readonly)UIButton *blackModeSwitchBtn;
+
+/*
+    未选中状态图标为黑夜模式
+    选中状态为图标为白天模式
+ */
+@property(nonatomic,readonly)UIButton *blackOrDayModeSwitchBtn;
 @property(nonatomic,readonly)UIButton *progressBtn;
 @property(nonatomic,readonly)UIButton *commentBtn;
 @property(nonatomic,readonly)UIButton *sourceWebsiteBtn;

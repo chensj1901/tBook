@@ -7,6 +7,7 @@
 //
 
 #import "SJReadingStatusBarView.h"
+#import "SJSettingRecode.h"
 
 @implementation SJReadingStatusBarView
 {
@@ -66,6 +67,11 @@
     NSDateFormatter *format=[[NSDateFormatter alloc]init];
     [format setDateFormat:@"HH:mm"];
     _timeLabel.text=[format stringFromDate:[NSDate date]];
+}
+
+-(void)refreshUI{
+    self.chapterNameLabel.textColor=[UIColor colorWithHex:[SJSettingRecode getSet:@"textColor"]];
+    self.timeLabel.textColor=[UIColor colorWithHex:[SJSettingRecode getSet:@"textColor"]];
 }
 
 /*

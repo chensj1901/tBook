@@ -22,6 +22,7 @@
 -(void)bookReadingViewControllerDidShowComment:(SJBookReadingViewController *)vc;
 -(void)bookReadingViewControllerDidHiddenToolbar:(SJBookReadingViewController *)vc;
 -(void)bookReadingViewControllerDidShowToolbar:(SJBookReadingViewController *)vc;
+-(void)bookReadingViewControllerDidShowSetVC:(SJBookReadingViewController *)vc;
 @end
 
 @interface SJBookReadingViewController : SJBaseViewController
@@ -32,5 +33,6 @@
 @property(nonatomic)NSInteger page;
 @property(nonatomic)BOOL isPrevious;
 @property(nonatomic)SJBookReadingView *mainView;
+@property(nonatomic)NSString *readingText;
 @end
 

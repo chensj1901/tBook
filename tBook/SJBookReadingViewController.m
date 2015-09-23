@@ -10,6 +10,7 @@
 #import "SJBookReadingView.h"
 #import "SJBookChapterReadRecode.h"
 #import <MMProgressHUD.h>
+#import "SJSettingRecode.h"
 
 @interface SJBookReadingViewController ()<UIGestureRecognizerDelegate>
 @end
@@ -50,7 +51,9 @@
     [self.mainView.operationView.backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [self.mainView.operationView.listenBtn addTarget:self action:@selector(read) forControlEvents:UIControlEventTouchUpInside];
     [self.mainView.operationView.catalogBtn addTarget:self action:@selector(showCatalog) forControlEvents:UIControlEventTouchUpInside];
+    [self.mainView.operationView.blackOrDayModeSwitchBtn addTarget:self action:@selector(blackOrDayModeSwitch:) forControlEvents:UIControlEventTouchUpInside];
     [self.mainView.operationView.sourceWebsiteBtn addTarget:self action:@selector(showSourceWebsite) forControlEvents:UIControlEventTouchUpInside];
+    [self.mainView.operationView.moreBtn addTarget:self action:@selector(set) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -68,7 +71,7 @@
     
     [self.mainView.operationView.navigationBarView quicklySetOriginY:-nHeight];
     [self.mainView.operationView.toolbarView quicklySetOriginY:HEIGHT];
-    
+    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [UIView animateWithDuration:0.3 animations:^{
         self.mainView.operationView.alpha=1;
         [self.mainView.operationView.navigationBarView quicklySetOriginY:0];
@@ -83,7 +86,7 @@
 
 -(void)hideToolBar{
     CGFloat nHeight=self.mainView.operationView.navigationBarView.frame.size.height;
-    
+    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     [UIView animateWithDuration:0.3 animations:^{
         self.mainView.operationView.alpha=0;
         [self.mainView.operationView.navigationBarView quicklySetOriginY:-nHeight];
@@ -105,6 +108,32 @@
 
 -(void)loadData{
     [self.bookService loadContentWithChapter:self.bookChapter book:self.book success:^{
+        
+        NSString *string=[NSString stringWithContentsOfFile:self.bookChapter.filePathWithThisChapter encoding:NSUTF8StringEncoding error:nil];
+        NSInteger i=0;
+        if (self.readingText.length>0) {
+            BOOL find=NO;
+            while (!find&&self.readingText.length>0) {
+                NSString *thisContent=[string substringWithRange:[[self.bookChapter.pageArr safeObjectAtIndex:i]rangeValue]];
+                if ([thisContent rangeOfString:self.readingText].length>0) {
+                    find=YES;
+                    self.readingText=@"";
+                    self.bookChapter.pageIndex=i;
+                }else{
+                    if (i<[self.bookChapter.pageArr count]-1) {
+                        i++;
+                    }else{
+                        i=0;
+                        if (self.readingText.length/2-1>0) {
+                            self.readingText=[self.readingText substringToIndex:self.readingText.length/2-1];
+                        }else{
+                            self.readingText=@"";
+                        }
+                    }
+                }
+            }
+            
+        }
         [self reloadContent];
     }fail:^(NSError *error) {
         
@@ -117,9 +146,25 @@
 
     NSString *string=[NSString stringWithContentsOfFile:self.bookChapter.filePathWithThisChapter encoding:NSUTF8StringEncoding error:nil];
     NSString *thisContent=[string substringWithRange:[[self.bookChapter.pageArr safeObjectAtIndex:self.bookChapter.pageIndex]rangeValue]];
-    self.mainView.bookContentLabel.text=thisContent;
     [self.mainView.readingStatusBarView loadChapter:self.bookChapter];
     [self.mainView.batteryImageView setElectricityValue:deviceLevel];
+    
+    NSString *backgroundStr=[SJSettingRecode getSet:@"backgroundStr"];
+    NSString *type=[[backgroundStr componentsSeparatedByString:@":"]safeObjectAtIndex:0];
+    NSString *value=[[backgroundStr componentsSeparatedByString:@":"]safeObjectAtIndex:1];
+    
+    if ([type rangeOfString:@"image"].length>0) {
+        self.mainView.backgroundView.image=[UIImage imageNamed:value];
+        self.mainView.backgroundView.backgroundColor=[UIColor clearColor];
+    }else if ([type rangeOfString:@"color"].length>0){
+        self.mainView.backgroundView.image=nil;
+        self.mainView.backgroundView.backgroundColorHex=value;
+    }
+    
+    [self.mainView.bookContentLabel quicklySetFontPoint:[[SJSettingRecode getSet:@"textFont"]intValue] textColorHex:[SJSettingRecode getSet:@"textColor"] textAlignment:NSTextAlignmentLeft];
+    self.mainView.bookContentLabel.text=thisContent;
+    self.mainView.operationView.blackOrDayModeSwitchBtn.selected=[[SJSettingRecode getSet:@"usingBlackMode"]boolValue];
+    [self.mainView.readingStatusBarView refreshUI];
 }
 
 
@@ -139,6 +184,24 @@
     }
 }
 
+-(void)blackOrDayModeSwitch:(UIButton*)btn{
+    BOOL isBlackModeNow=btn.isSelected;
+    
+    if (isBlackModeNow) {
+        
+        [SJSettingRecode set:@"textColor" value:@"313746"];
+        [SJSettingRecode set:@"backgroundStr" value:@"image:reading_background.jpg"];
+    }else{
+        
+        [SJSettingRecode set:@"textColor" value:@"acacac"];
+        [SJSettingRecode set:@"backgroundStr" value:@"color:000000"];
+    }
+    
+    btn.selected=!isBlackModeNow;
+    [SJSettingRecode set:@"usingBlackMode" value:btn.selected?@"1":@"0"];
+    [self reloadContent];
+}
+
 -(void)showCatalog{
     if ([self.delegate respondsToSelector:@selector(bookReadingViewControllerDidShowCatalog:)]) {
         [self.delegate bookReadingViewControllerDidShowCatalog:self];
@@ -155,6 +218,12 @@
 -(void)showComment{
     if ([self.delegate respondsToSelector:@selector(bookReadingViewControllerDidShowComment:)]) {
         [self.delegate bookReadingViewControllerDidShowComment:self];
+    }
+}
+
+-(void)set{
+    if ([self.delegate respondsToSelector:@selector(bookReadingViewControllerDidShowSetVC:)]) {
+        [self.delegate bookReadingViewControllerDidShowSetVC:self];
     }
 }
 

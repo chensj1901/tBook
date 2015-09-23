@@ -7,11 +7,13 @@
 //
 
 #import "SJBatteryImageView.h"
+#import "SJSettingRecode.h"
 
 @implementation SJBatteryImageView
 
 {
     CGRect _electricityValueViewRect;
+    NSString *_imageNamed;
 }
 
 
@@ -33,6 +35,8 @@
 }
 
 -(void)loadUI{
+    _imageNamed=@"read_battery.png";
+    self.image=[UIImage imageNamed:_imageNamed];
     [self addSubview:self.electricityValueView];
 }
 
@@ -53,6 +57,10 @@
     if (electricityValue>0) {
         [self.electricityValueView quicklySetWidth:28*electricityValue];
     }
+    NSString *colorHex=[SJSettingRecode getSet:@"textColor"];
+    UIImage *image=[[UIImage imageNamed:_imageNamed]imageWithTintColor:[UIColor colorWithHex:colorHex]];
+    self.electricityValueView.backgroundColorHex=colorHex;
+    self.image=image;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

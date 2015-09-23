@@ -22,12 +22,38 @@
     [SJBookChapterReadRecode initDB];
     [SJBookChapterRecode initDB];
     
-    [SJSettingRecode set:@"textFont" value:@"20"];
+    if ([[SJSettingRecode getSet:@"isInit"]boolValue]==NO) {
+        [SJSettingRecode set:@"textColor" value:@"313746"];
+        [SJSettingRecode set:@"textFont" value:@"20"];
+        [SJSettingRecode set:@"backgroundStr" value:@"image:reading_background.jpg"];
+        [SJSettingRecode set:@"isInit" value:@"1"];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
+//    for (int j=0; j<100; j++) {
+//        NSInteger maxCoin=0;
+//        NSInteger sum=10000;
+//        NSInteger coin=1;
+//        for (int i=0; i<500000; i++) {
+//            NSInteger randInt=arc4random()%2;
+//            if (randInt==0) {
+//                sum+=coin;
+//                coin=1;
+//            }else{
+//                sum-=coin;
+//                coin*=2;
+//            }
+//            maxCoin=MAX(maxCoin, coin);
+//            if (sum-coin<=0) {
+//                break;
+//            }
+//        }
+//        NSLog(@"%ld %ld",(long)sum,(long)maxCoin);
+//    }
+    
     // Override point for customization after application launch.
     [self initDB];
     
@@ -40,7 +66,7 @@
     [window makeKeyAndVisible];
     self.window=window;
     
-    [IFlySpeechUtility createUtility:YUNFEI_APPID];
+    [IFlySpeechUtility createUtility:XUNFEI_APPID];
     
     return YES;
 }
