@@ -61,12 +61,15 @@
 }
 
 -(void)searchBook{
+    [self.mainView.searchBar resignFirstResponder];
+    self.mainView.searchHintTableView.hidden=YES;
     [self loadFirstBooks];
 }
 
 
 -(void)loadFirstBooks{
     [self.bookService loadFirstBooksWithKeyWord:self.mainView.searchBar.text success:^{
+        [self.mainView.resultTableView setContentOffset:CGPointMake(0, 0) animated:YES];
         [self.mainView.resultTableView reloadData];
         self.mainView.resultTableView.pullTableIsRefreshing=NO;
     } fail:^(NSError *error) {
@@ -148,7 +151,6 @@
     if (tableView==self.mainView.searchHintTableView) {
         SJBook *book=[self.bookService.searchHintBooks objectAtIndex:indexPath.row];
         self.mainView.searchBar.text=book.name;
-        self.mainView.searchHintTableView.hidden=YES;
         [self searchBook];
     }else{
         SJBook *book=[self.bookService.searchResultBooks objectAtIndex:indexPath.row];

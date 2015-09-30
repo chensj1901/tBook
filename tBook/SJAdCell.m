@@ -1,14 +1,14 @@
 //
-//  SJBookCell.m
+//  SJAdCell.m
 //  tBook
 //
-//  Created by 陈少杰 on 15/2/7.
-//  Copyright (c) 2015年 陈少杰. All rights reserved.
+//  Created by 陈少杰 on 15/9/24.
+//  Copyright © 2015年 陈少杰. All rights reserved.
 //
 
-#import "SJBookCell.h"
+#import "SJAdCell.h"
 
-@implementation SJBookCell
+@implementation SJAdCell
 {
     CGRect _bookCoverImageViewRect;
     CGRect _bookTitleLabelRect;
@@ -37,20 +37,20 @@
 }
 
 -(void)loadSetting{
-    _bookCoverImageViewRect= CGRectMake(10, 10, 60, 75);
+    _bookCoverImageViewRect= CGRectMake(10, 17.5, 60, 60);
     _bookTitleLabelRect= CGRectMake(80, 18, WIDTH-170, 16);
     _bookDescLabelRect= CGRectMake(80, 64, WIDTH-90, 12);
     _readBtnRect= CGRectMake(WIDTH-80, 10, 30, 30);
     _msgBtnRect= CGRectMake(WIDTH-40, 10, 30, 30);
-    _lineViewRect= CGRectMake(80, [SJBookCell cellHeight]-1, WIDTH-90, 1);
+    _lineViewRect= CGRectMake(80, [SJAdCell cellHeight]-1, WIDTH-90, 1);
 }
 
 -(void)loadUI{
     [self addSubview:self.bookCoverImageView];
     [self addSubview:self.bookTitleLabel];
     [self addSubview:self.bookDescLabel];
-//    [self addSubview:self.readBtn];
-//    [self addSubview:self.msgBtn];
+    //    [self addSubview:self.readBtn];
+        [self addSubview:self.msgBtn];
     [self addSubview:self.lineView];
 }
 
@@ -92,7 +92,8 @@
     if (!_msgBtn) {
         _msgBtn=[UIButton buttonWithType:UIButtonTypeCustom];
         _msgBtn.frame=_msgBtnRect;
-        [_msgBtn quicklySetNormalImageNamed:@"index_msg.png" highlightImageNamed:nil selectedImageNamed:nil];
+//        [_msgBtn quicklySetNormalImageNamed:@"index_msg.png" highlightImageNamed:nil selectedImageNamed:nil];
+        [_msgBtn quicklySetFontPoint:12 textColorHex:@"acacac" textAlignment:NSTextAlignmentCenter];
     }
     return _msgBtn;
 }
@@ -114,20 +115,26 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
--(void)loadBook:(SJBook *)book{
-    self.bookCoverImageView.imageURL=[NSURL URLWithString:book.imgUrl];
-    self.bookTitleLabel.text=book.name;
-    if(book.lastChapterName.length>0){
-        self.bookDescLabel.text=book.isLoadingLastChapterName?@"最新章节：正在查询":[NSString stringWithFormat:@"最新章节：%@",book.lastChapterName];
-    }
+-(void)loadApp:(SJRecommendApp *)app{
+    self.bookCoverImageView.imageURL=[NSURL URLWithString:app.appIcon];
+    self.bookTitleLabel.text=app.appName;
+    self.bookDescLabel.text=app.appDesc;
+    [self.msgBtn setTitle:@"推广" forState:UIControlStateNormal];
 }
 
 +(CGFloat)cellHeight{
     return 100;
 }
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
 
 @end

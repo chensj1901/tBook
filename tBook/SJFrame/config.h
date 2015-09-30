@@ -18,7 +18,8 @@
 
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
 
-#define ADS_APPKEY @"acce3b9e48844c77956b400ed560b52c"
+#define ADS_MOGO_APPKEY @"acce3b9e48844c77956b400ed560b52c"
+#define ADWO_APPKEY @"c18c16869cf14ebe91391f2dc0df3a81"
 #define XUNFEI_APPID @"appid=5477dbc5"
 
 struct SJCoordinate{

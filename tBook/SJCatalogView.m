@@ -44,7 +44,7 @@
     self.backgroundColor=[[UIColor whiteColor]colorWithAlphaComponent:1];
     
     [self addSubview:self.titleLabel];
-    [self addSubview:self.changeSouceBtn];
+//    [self addSubview:self.changeSouceBtn];
     [self addSubview:self.detailTableView];
     [self addSubview:self.progressSlider];
 }

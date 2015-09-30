@@ -91,7 +91,7 @@
         _resultTableView=[[PullTableView alloc]initWithFrame:_resultTableViewRect loadMoreSwitch:YES refreshSwitch:YES];
         
         if (IS_IOS7()) {
-            _resultTableView.contentInset=UIEdgeInsetsMake(34, 0, 0, 0);
+            _resultTableView.contentInset=UIEdgeInsetsMake(30, 0, 0, 0);
         }
     }
     return _resultTableView;

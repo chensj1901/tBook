@@ -9,10 +9,16 @@
 #import "SJBookCacheOperation.h"
 #import <MMProgressHUD.h>
 
-static NSRecursiveLock *lockMain = nil;
+//static NSRecursiveLock *lockMain = nil;
+
+
+
+NSString *const SJBookCacheOperationDidCacheNotification=@"SJBookCacheOperationDidCacheNotification";
 
 @implementation SJBookCacheOperation
-
+{
+    dispatch_semaphore_t semaphore;
+}
 -(id)initWithBook:(SJBook *)book{
     if (self=[super init]) {
         self.book=book;
@@ -28,24 +34,33 @@ static NSRecursiveLock *lockMain = nil;
 }
 
 -(void)main{
-    if (lockMain == nil) {
-        lockMain = [[NSRecursiveLock alloc] init];
-    }
+
+    semaphore = dispatch_semaphore_create(3);
+    
+    dispatch_queue_t queue=dispatch_queue_create("TEST", DISPATCH_QUEUE_SERIAL);
     
     [self.bookService loadBookChapterWithBook:self.book cacheMethod:SJCacheMethodFail success:^{
         __block int i=0;
         int sum=[self.bookService.bookChapters count];
         for(SJBookChapter *chapter in self.bookService.bookChapters){
-               [lockMain lock];
-            [self.bookService loadContentWithChapter:chapter book:self.book shouldFormatPage:NO success:^{
-                i++;
-                [lockMain unlock];
-                alert([NSString stringWithFormat:@"%d/%d",i,sum]);
-                NSLog(@"%d/%d",i,sum);
-//                [MMProgressHUD showWithStatus:[NSString stringWithFormat:@"%d/%d",i,sum]];
-            } fail:^(NSError *error) {
-                [lockMain unlock];
-            }];
+            dispatch_async(queue, ^{
+                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                
+                dispatch_async(dispatch_get_main_queue(),^{
+                    [self.bookService loadContentWithChapter:chapter book:self.book shouldFormatPage:NO success:^{
+                        i++;
+                        dispatch_semaphore_signal(semaphore);
+                        
+    
+                        [[NSNotificationCenter defaultCenter]postNotificationName:SJBookCacheOperationDidCacheNotification object:self userInfo:@{@"book":self.book,@"sum":@(sum),@"current":@(i)}];
+                     
+                    
+                    } fail:^(NSError *error) {
+                        dispatch_semaphore_signal(semaphore);
+                    }];
+                });
+            });
+            
         }
     } fail:^(NSError *error) {
         

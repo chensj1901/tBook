@@ -23,7 +23,7 @@
 #import "UIViewController+SJViewController.h"
 #import "UITextField+SJTextField.h"
 #import "UIImage+SJImage.h"
-
+#import "UITableView+SJTableView.h"
 
 #define SELF_WIDTH self.bounds.size.width
 

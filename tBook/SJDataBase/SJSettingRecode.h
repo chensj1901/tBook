@@ -39,5 +39,5 @@ typedef enum EditFromWhich EditFromWhich;
  *
  *	@return	值
  */
-+(NSString*)getSet:(NSString*)settingName;
++(NSString*)getSet:(NSString*)settingName,...;
 @end

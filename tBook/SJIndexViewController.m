@@ -17,6 +17,11 @@
 #import "SJSearchBookViewController.h"
 #import "SJRankService.h"
 #import "SJTipCell.h"
+#import "SJNativeAdsController.h"
+#import "SJAdCell.h"
+#import "SJAdsController.h"
+#import "SJSettingRecode.h"
+#import "SJBookURLRequest.h"
 
 @interface SJIndexViewController ()<UITableViewDelegate,UITableViewDataSource,PullTableViewDelegate,UITextFieldDelegate>
 @property(nonatomic)SJIndexView *mainView;
@@ -29,9 +34,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+    [SJAdsController showAdsBanner];
+}
 
-    
+
+-(void)loadAdsWithCell:(SJAdCell *)cell{
+    [[SJNativeAdsController sharedAdsController]loadNativeAdWithSuccessBlock:^UIView *(UIView *adView, SJRecommendApp *adApp) {
+        [cell loadApp:adApp];
+        return cell;
+    }failBlock:^(NSError *error) {
+        
+    }];
 }
 
 //-(SJIndexView *)mainView{
@@ -46,11 +59,7 @@
     self.mainView.resultTableView.dataSource=self;
     self.mainView.resultTableView.delegate=self;
     self.mainView.resultTableView.pullDelegate=self;
-    
     self.mainView.searchTextField.delegate=self;
-    
-
-    
 }
 
 -(void)loadUI{
@@ -102,6 +111,18 @@
             book.lastChapterName=lastChapter.chapterName;
             book.isLoadingLastChapterName=NO;
             
+            NSString *recodeTag=[NSString stringWithFormat:@"lastChapterIdForBookId_%ld",(long)book.nid];
+            NSInteger lastChapterId=[[SJSettingRecode getSet:recodeTag]integerValue];
+            if (lastChapter._id>lastChapterId) {
+                [SJSettingRecode set:recodeTag value:[NSString stringWithFormat:@"%ld",(long)lastChapter._id]];
+                
+                [SJBookURLRequest apiUpdateBookChapterWithBook:book BookChapter:lastChapter success:^(AFHTTPRequestOperation *op, id dic) {
+                    
+                } failure:^(AFHTTPRequestOperation *op, NSError *error) {
+                    
+                }];
+            }
+            
             NSInteger index=[self.bookService.locaBooks indexOfObject:book];
             @try {
                 [self.mainView.resultTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
@@ -124,7 +145,16 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return MAX([self.bookService.locaBooks count],1);
+    
+    if(section==0){
+        return MAX([self.bookService.locaBooks count],1);
+    }else{
+        return MIN([self.bookService.locaBooks count],1);
+    }
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -132,49 +162,65 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SJBook *book=[self.bookService.locaBooks safeObjectAtIndex:indexPath.row];
-    if (!book) {
-        
-        static NSString *cellId=@"SJTipCell";
-        SJTipCell *cell=[tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell=[[SJTipCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    if (indexPath.section==0) {
+        SJBook *book=[self.bookService.locaBooks safeObjectAtIndex:indexPath.row];
+        if (!book) {
+            static NSString *cellId=@"SJTipCell";
+            SJTipCell *cell=[tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell=[[SJTipCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            }
+            [cell loadTip:@"书架为空，点击搜索添加几本吧！"];
+            return cell;
+        }else{
+            static NSString *cellId=@"SJBOOKCELL";
+            SJBookCell *bookCell=[tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!bookCell) {
+                bookCell=[[SJBookCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            }
+            [bookCell loadBook:book];
+            return bookCell;
         }
-        [cell loadTip:@"书架为空，点击搜索添加几本吧！"];
-        return cell;
+
     }else{
-        static NSString *cellId=@"SJBOOKCELL";
-        SJBookCell *bookCell=[tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!bookCell) {
-            bookCell=[[SJBookCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        static NSString *cellId=@"SJRecommendAppCell";
+        SJAdCell *cell=[self.mainView.resultTableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell=[[SJAdCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            [self loadAdsWithCell:cell];
         }
-        [bookCell loadBook:book];
-        return bookCell;
+        return cell;
     }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    SJBook *book=[self.bookService.locaBooks safeObjectAtIndex:indexPath.row];
-    if (!book) {
-        SJSearchBookViewController *searchBookVC=[[SJSearchBookViewController alloc]init];
-        [self.navigationController pushViewController:searchBookVC animated:YES];
-    }else{
-        if (!book.readingChapter) {
-            SJBookDetailViewController *bookDetailVC=[[SJBookDetailViewController alloc]init];
-            bookDetailVC.book=book;
-            [self.navigationController pushViewController:bookDetailVC animated:YES];
+    if (indexPath.section==0) {
+        if ([self.bookService.locaBooks count]>0) {
+            SJBook *book=[self.bookService.locaBooks safeObjectAtIndex:indexPath.row];
+            
+            if (!book.readingChapter) {
+                SJBookDetailViewController *bookDetailVC=[[SJBookDetailViewController alloc]init];
+                bookDetailVC.book=book;
+                [self.navigationController pushViewController:bookDetailVC animated:YES];
+            }else{
+                SJBookReadPageViewController *readVC=[[SJBookReadPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+                readVC.book=book;
+                readVC.bookChapter=book.readingChapter;
+                [self.navigationController pushViewController:readVC animated:YES];
+            }
         }else{
-            SJBookReadPageViewController *readVC=[[SJBookReadPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
-            readVC.book=book;
-            readVC.bookChapter=book.readingChapter;
-            [self.navigationController pushViewController:readVC animated:YES];
+            SJSearchBookViewController *searchBookVC=[[SJSearchBookViewController alloc]init];
+            [self.navigationController pushViewController:searchBookVC animated:YES];
         }
-
+        
+            
+    }else{
+    
     }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [SJBookCell cellHeight];
+    return indexPath.section==0?[SJBookCell cellHeight]:[SJAdCell cellHeight];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -182,7 +228,10 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-    return YES;
+    if(indexPath.section==0&&[self.bookService.locaBooks count]>0){
+     return YES;
+    }
+    return NO;
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{

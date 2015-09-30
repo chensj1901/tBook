@@ -10,6 +10,8 @@
 #import "SJBookChapter.h"
 #import "SJBookService.h"
 
+NSString *const SJBookCacheOperationDidCacheNotification;
+
 @interface SJBookCacheOperation : NSOperation
 @property(nonatomic)id delegate;
 @property(nonatomic)SJBook *book;

@@ -40,6 +40,7 @@
         _paid = [[dictionary objectForKey:@"paid"]integerValue];
         _curl = [dictionary objectForKey:@"curl"];
         _charge = [[dictionary objectForKey:@"charge"]integerValue];
+        _pageIndex=[[dictionary objectForKey:@"pageIndex"]integerValue];
     }
     return self;
 }

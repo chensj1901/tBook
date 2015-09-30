@@ -23,4 +23,6 @@
 
 
 +(void)apiLoadSearchHintBooksWithKeyWord:(NSString*)keyWorld success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+
++(void)apiUpdateBookChapterWithBook:(SJBook *)book BookChapter:(SJBookChapter *)bookChapter success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *op, NSError *error))failure;
 @end

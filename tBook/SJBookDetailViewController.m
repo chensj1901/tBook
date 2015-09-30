@@ -25,6 +25,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.mainView loadBook:self.book];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(cacheAllProgress:) name:SJBookCacheOperationDidCacheNotification object:nil];
+}
+
+-(void)cacheAllProgress:(NSNotification*)notification{
+    NSDictionary *dic=notification.userInfo;
+//    SJBook *book = [dic safeObjectForKey:@"book"];
+    NSInteger current=[[dic safeObjectForKey:@"current"]integerValue];
+    NSInteger sum=[[dic safeObjectForKey:@"sum"]integerValue];
+    [MMProgressHUD updateProgress:(float)current/sum withStatus:[NSString stringWithFormat:@"%ld/%ld",(long)current,(long)sum] title:@"正在缓存"];
+    if (sum==current) {
+        [MMProgressHUD dismiss];
+        [self readNow];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,6 +64,7 @@
 -(void)cacheAll{
 //    [MMProgressHUD showWithStatus:@"正在读取章节"];
     
+    [MMProgressHUD showDeterminateProgressWithTitle:@"" status:@"正在缓存"];
     [[SJBookCacheQueue queue]addOperation:[SJBookCacheOperation operationWithBook:self.book]];
 }
 

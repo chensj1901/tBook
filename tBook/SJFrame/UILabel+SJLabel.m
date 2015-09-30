@@ -53,6 +53,9 @@
 
 
 -(void)quicklyHighlightedTextWithRange:(NSRange)range{
+    if (range.length+range.location>self.text.length) {
+        return;
+    }
     NSMutableAttributedString *t=[[NSMutableAttributedString alloc]initWithAttributedString:self.attributedText];
     
     if (range.length==0) {

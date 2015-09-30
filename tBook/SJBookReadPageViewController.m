@@ -14,6 +14,7 @@
 #import "SJBookReadingView.h"
 #import "SJBookChapterRecode.h"
 #import "SJBookReadSettingViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SJBookReadPageViewController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate,SJBookReadingViewControllerDelegate,IFlySpeechSynthesizerDelegate,SJCatalogViewControllerDelegate>
 @property(nonatomic)NSArray *bookContentSeparates;
@@ -157,13 +158,15 @@
     }
     
     
-    //    AVSpeechSynthesizer *av=[[AVSpeechSynthesizer alloc]init];
-    //
-    //    AVSpeechUtterance *ut=[[AVSpeechUtterance alloc]initWithString:self.thisKDBookContent];
-    //    ut.rate=AVSpeechUtteranceMaximumSpeechRate;
-    //
-    //    [av speakUtterance:ut];
+//        AVSpeechSynthesizer *av=[[AVSpeechSynthesizer alloc]init];
+//        av.delegate=self;
+//    
+//        AVSpeechUtterance *ut=[[AVSpeechUtterance alloc]initWithString:readText];
+//        ut.rate=AVSpeechUtteranceMinimumSpeechRate+(AVSpeechUtteranceMaximumSpeechRate-AVSpeechUtteranceMinimumSpeechRate)*0.6;
+//
+//        [av speakUtterance:ut];
 }
+
 
 -(void)setTextHightAtRange:(NSRange)range{
     SJBookReadingViewController *pageVC=[self.viewControllers objectAtIndex:0];
@@ -192,6 +195,9 @@
 -(void)nextPageWithComplete:(void (^)(BOOL finished))finishBlock{
     UIViewController *nextVC=[self pageViewController:self viewControllerAfterViewController:nil];
     [self setViewControllers:@[nextVC] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished){
+        if (finishBlock) {
+            finishBlock(finished);
+        }
     }];
 
 
@@ -299,14 +305,17 @@
     [self showSetVC];
 }
 
--(void)catalogViewControllerDidSelectChapter:(SJBookChapter *)chapter{
+-(void)catalogViewControllerDidSelectChapter:(SJBookChapter *)selectChapter{
     [self.catalogVC.view removeFromSuperview];
     
-    if(chapter!=self.bookChapter){
-        chapter.pageIndex=0;
-        chapter.isSelected=YES;
-        self.bookChapter.isSelected=NO;
-        self.bookChapter=chapter;
+    for (SJBookChapter *chapter in self.bookService.bookChapters) {
+        chapter.isSelected=[chapter.chapterName isEqualToString:selectChapter.chapterName];
+    }
+    
+    if(selectChapter!=self.bookChapter){
+        selectChapter.pageIndex=0;
+        selectChapter.isSelected=YES;
+        self.bookChapter=selectChapter;
     }
         
     SJBookReadingViewController *bookReadingVC=[[SJBookReadingViewController alloc]init];

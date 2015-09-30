@@ -9,10 +9,11 @@
 #import "SJNativeAdsController.h"
 #import "AdwoAdSDK.h"
 #import <Social/Social.h>
+#import "SJRecommendApp.h"
 
-#define ADWO_PUBLISH_ID_FOR_DEMO        @"536a9c813d1a47f8a6a56b55638d904e"
 
 static SJNativeAdsController *_adsController;
+
 
 static NSString* const adwoResponseErrorInfoList[] = {
     @"操作成功",
@@ -53,10 +54,13 @@ static NSString* const adwoResponseErrorInfoList[] = {
 @interface SJNativeAdsController ()<AWAdViewDelegate>
 @property(nonatomic)NSMutableArray *ads;
 @property(nonatomic)UIView *mAdView;
+@property(nonatomic)UIView *adView;
+@property(nonatomic)SJRecommendApp *app;
 @end
 
 @implementation SJNativeAdsController
-@synthesize mAdView=mAdView;
+@synthesize mAdView=_mAdView;
+@synthesize adView=_adView;
 
 +(SJNativeAdsController *)sharedAdsController{
     if (!_adsController) {
@@ -67,20 +71,19 @@ static NSString* const adwoResponseErrorInfoList[] = {
 }
 
 +(void)load{
-    [[self sharedAdsController]loadAds];
 }
 
 -(void)loadAds{
-    mAdView = AdwoAdCreateImplantAd(ADWO_PUBLISH_ID_FOR_DEMO, YES, self, nil, ADWOSDK_IMAD_SHOW_FORM_COMMON);
+    _mAdView = AdwoAdCreateImplantAd(ADWO_APPKEY, YES, self, nil, ADWOSDK_IMAD_SHOW_FORM_COMMON);
     
     // 加载原生广告
-    if(!AdwoAdLoadImplantAd(mAdView, NULL))
+    if(!AdwoAdLoadImplantAd(_mAdView, NULL))
     {
         NSLog(@"原生广告加载失败，由于：%@", adwoResponseErrorInfoList[AdwoAdGetLatestErrorCode()]);
         
         // 移除原生广告对象
-        AdwoAdRemoveAndDestroyImplantAd(mAdView);
-        mAdView = nil;
+        AdwoAdRemoveAndDestroyImplantAd(_mAdView);
+        _mAdView = nil;
     }
     else
         NSLog(@"加载成功");
@@ -106,42 +109,39 @@ static NSString* const adwoResponseErrorInfoList[] = {
 - (void)adwoAdViewDidFailToLoadAd:(UIView*)adView
 {
     NSLog(@"原生广告请求失败，由于：%@", adwoResponseErrorInfoList[AdwoAdGetLatestErrorCode()]);
+    if (self.fail) {
+        NSError *error=[NSError errorWithDomain:adwoResponseErrorInfoList[AdwoAdGetLatestErrorCode()] code:404 userInfo:nil];
+        self.fail(error);
+    }
 }
 
 - (void)adwoAdViewDidLoadAd:(UIView*)adView
 {
-    //获取AdInfo中的广告信息
-    //将adInfo转化为Dictionary格式，方便提取
-    NSString *str = AdwoAdGetAdInfo(mAdView);
+    NSString *str = AdwoAdGetAdInfo(_mAdView);
     NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
     NSLog(@"adinfo is :%@",dic);
-    
-    //开发者在这里做图片提取与视图模板组织工作
-    
-    
-    // 原生广告尺寸默认是当前屏幕大小，这里开发者可以根据需求自己设置广告的尺寸
-    CGSize size = CGSizeMake(200, 200);
-    
-    // 然后根据当前尺寸，可以设定植入性广告的位置
-    adView.frame = CGRectMake(([self adwoGetBaseViewController].view.frame.size.width - size.width) * 0.5f, [self adwoGetBaseViewController].view.frame.size.height - size.height - 50.0f, size.width, size.height);
-    adView.backgroundColor=[UIColor redColor];
-    
-    // 现在可以将其进行展示了。当然，展示也可稍后再做
-    AdwoAdShowImplantAd(adView, [self adwoGetBaseViewController].view);
-    
-    // 激活原生广告
-    AdwoAdImplantAdActivate(mAdView);
-    
-    
+    SJRecommendApp *app=[[SJRecommendApp alloc]initWithAdwoDictionary:dic];
+
+    if (self.success) {
+        UIView *showingView = self.success(adView,app);
+        AdwoAdShowImplantAd(adView, showingView);
+        AdwoAdImplantAdActivate(_mAdView);
+    }
+}
+
+-(void)loadNativeAdWithSuccessBlock:(SJNavAdsSuccessBlock)successBlock failBlock:(SJNavAdsFailBlock)failBlock{
+    self.success=successBlock;
+    self.fail=failBlock;
+    [self loadAds];
 }
 
 -(void)removeAds{
-    if(mAdView != nil)
+    if(_mAdView != nil)
     {
-        AdwoAdRemoveAndDestroyImplantAd(mAdView);
-        mAdView = nil;
+        AdwoAdRemoveAndDestroyImplantAd(_mAdView);
+        _mAdView = nil;
     }
 }
 

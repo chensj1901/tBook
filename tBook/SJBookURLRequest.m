@@ -62,4 +62,34 @@
 +(NSString *)udid{
     return  [[UIDevice currentDevice].identifierForVendor.UUIDString md5Encode];
 }
+
++(void)apiUpdateBookChapterWithBook:(SJBook *)book BookChapter:(SJBookChapter *)bookChapter success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *op, NSError *error))failure{
+    @try {
+        /*
+         $nid=$_GET["nid"];
+         $chapterId=$_GET["chapterId"];
+         $site=$_GET["site"];
+         $bookName=$_GET["bookName"];
+         $chapterName=$_GET["chapterName"];
+         */
+        SJHTTPRequestOperationManager *manager=[SJHTTPRequestOperationManager manager];
+        NSString *str=[NSString stringWithFormat:@"%@/op.php?op=updateBookUpdateInfo",HOST_SITE];
+        NSDictionary *booInfo=@{@"nid":@(book.nid),
+                                @"chapterId":@(bookChapter._id),
+                                @"site":book.site,
+                                @"bookName":book.name,
+                                @"chapterName":bookChapter.chapterName
+                                };
+        [manager POST:str parameters:booInfo cacheMethod:SJCacheMethodFail success:success failure:failure];
+    }
+    @catch (NSException *exception) {
+        if (failure) {
+            NSError *error=[NSError errorWithDomain:@"Error" code:404 userInfo:nil];
+            failure(nil,error);
+        }
+    }
+    @finally {
+        
+    }
+}
 @end

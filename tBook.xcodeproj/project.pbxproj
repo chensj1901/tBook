@@ -45,6 +45,7 @@
 		3335156C1BA27356001B7D0A /* SJBookCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3335156B1BA27356001B7D0A /* SJBookCacheOperation.m */; };
 		333C5B331A3AD82100326EF8 /* SJBookURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 333C5B321A3AD82100326EF8 /* SJBookURLRequest.m */; };
 		3340E0BD1A2F0094006C74D5 /* SJSquareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3340E0BC1A2F0094006C74D5 /* SJSquareViewController.m */; };
+		33561D041BB4324300990515 /* SJAdsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33561D031BB4324300990515 /* SJAdsController.m */; settings = {ASSET_TAGS = (); }; };
 		335903C31A2814E900BFE20F /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335903C21A2814E900BFE20F /* iflyMSC.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		335903C51A2814F300BFE20F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335903C41A2814F300BFE20F /* CoreLocation.framework */; };
 		335903C71A2814FA00BFE20F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335903C61A2814FA00BFE20F /* CoreTelephony.framework */; };
@@ -201,6 +202,18 @@
 		33E3E00A1A8618D20086DCA8 /* searchBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33E3E0081A8618D20086DCA8 /* searchBtn@2x.png */; };
 		33E3E00C1A86193B0086DCA8 /* index_msg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33E3E00B1A86193B0086DCA8 /* index_msg@2x.png */; };
 		33E3E0131A861C6B0086DCA8 /* UIViewController+SJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E3E0121A861C6B0086DCA8 /* UIViewController+SJViewController.m */; };
+		33E5F0901BB3C2940053ABAA /* SJAdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F08F1BB3C2940053ABAA /* SJAdCell.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0941BB3CB9B0053ABAA /* SJSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F0931BB3CB9B0053ABAA /* SJSettingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0991BB3CBA50053ABAA /* SJSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F0961BB3CBA50053ABAA /* SJSettingCell.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F09A1BB3CBA50053ABAA /* SJSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F0981BB3CBA50053ABAA /* SJSettingView.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0A31BB3CBC40053ABAA /* SJRecommendAppCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F09C1BB3CBC40053ABAA /* SJRecommendAppCell.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0A41BB3CBC40053ABAA /* SJRecommendApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F09E1BB3CBC40053ABAA /* SJRecommendApp.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0A51BB3CBC40053ABAA /* SJRecommendAppURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F0A01BB3CBC40053ABAA /* SJRecommendAppURLRequest.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0A61BB3CBC40053ABAA /* SJRecommendAppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F0A21BB3CBC40053ABAA /* SJRecommendAppService.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0A91BB3CC860053ABAA /* SJShareCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F0A81BB3CC860053ABAA /* SJShareCenter.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0AF1BB3D57B0053ABAA /* SJWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F0AC1BB3D57B0053ABAA /* SJWebView.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0B01BB3D57B0053ABAA /* SJWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F0AE1BB3D57B0053ABAA /* SJWebViewController.m */; settings = {ASSET_TAGS = (); }; };
+		33E5F0B31BB3D6190053ABAA /* UITableView+SJTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5F0B21BB3D6190053ABAA /* UITableView+SJTableView.m */; settings = {ASSET_TAGS = (); }; };
 		33F2EDC81A88EA33000905E7 /* read_listen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33F2EDC41A88EA33000905E7 /* read_listen@2x.png */; };
 		33F2EDC91A88EA33000905E7 /* read_msg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33F2EDC51A88EA33000905E7 /* read_msg@2x.png */; };
 		33F2EDCD1A88EA9F000905E7 /* read_catelog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33F2EDCB1A88EA9F000905E7 /* read_catelog@2x.png */; };
@@ -280,6 +293,8 @@
 		333C5B321A3AD82100326EF8 /* SJBookURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBookURLRequest.m; sourceTree = "<group>"; };
 		3340E0BB1A2F0094006C74D5 /* SJSquareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSquareViewController.h; sourceTree = "<group>"; };
 		3340E0BC1A2F0094006C74D5 /* SJSquareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSquareViewController.m; sourceTree = "<group>"; };
+		33561D021BB4324300990515 /* SJAdsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAdsController.h; sourceTree = "<group>"; };
+		33561D031BB4324300990515 /* SJAdsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAdsController.m; sourceTree = "<group>"; };
 		335903C21A2814E900BFE20F /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = ../../../Downloads/iOS_voice_1/lib/iflyMSC.framework; sourceTree = "<group>"; };
 		335903C41A2814F300BFE20F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		335903C61A2814FA00BFE20F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -523,6 +538,30 @@
 		33E3E00B1A86193B0086DCA8 /* index_msg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_msg@2x.png"; sourceTree = "<group>"; };
 		33E3E0111A861C6B0086DCA8 /* UIViewController+SJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SJViewController.h"; sourceTree = "<group>"; };
 		33E3E0121A861C6B0086DCA8 /* UIViewController+SJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SJViewController.m"; sourceTree = "<group>"; };
+		33E5F08E1BB3C2940053ABAA /* SJAdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAdCell.h; sourceTree = "<group>"; };
+		33E5F08F1BB3C2940053ABAA /* SJAdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAdCell.m; sourceTree = "<group>"; };
+		33E5F0921BB3CB9B0053ABAA /* SJSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSettingViewController.h; sourceTree = "<group>"; };
+		33E5F0931BB3CB9B0053ABAA /* SJSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSettingViewController.m; sourceTree = "<group>"; };
+		33E5F0951BB3CBA50053ABAA /* SJSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSettingCell.h; sourceTree = "<group>"; };
+		33E5F0961BB3CBA50053ABAA /* SJSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSettingCell.m; sourceTree = "<group>"; };
+		33E5F0971BB3CBA50053ABAA /* SJSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSettingView.h; sourceTree = "<group>"; };
+		33E5F0981BB3CBA50053ABAA /* SJSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSettingView.m; sourceTree = "<group>"; };
+		33E5F09B1BB3CBC40053ABAA /* SJRecommendAppCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJRecommendAppCell.h; sourceTree = "<group>"; };
+		33E5F09C1BB3CBC40053ABAA /* SJRecommendAppCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJRecommendAppCell.m; sourceTree = "<group>"; };
+		33E5F09D1BB3CBC40053ABAA /* SJRecommendApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJRecommendApp.h; sourceTree = "<group>"; };
+		33E5F09E1BB3CBC40053ABAA /* SJRecommendApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJRecommendApp.m; sourceTree = "<group>"; };
+		33E5F09F1BB3CBC40053ABAA /* SJRecommendAppURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJRecommendAppURLRequest.h; sourceTree = "<group>"; };
+		33E5F0A01BB3CBC40053ABAA /* SJRecommendAppURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJRecommendAppURLRequest.m; sourceTree = "<group>"; };
+		33E5F0A11BB3CBC40053ABAA /* SJRecommendAppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJRecommendAppService.h; sourceTree = "<group>"; };
+		33E5F0A21BB3CBC40053ABAA /* SJRecommendAppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJRecommendAppService.m; sourceTree = "<group>"; };
+		33E5F0A71BB3CC860053ABAA /* SJShareCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJShareCenter.h; sourceTree = "<group>"; };
+		33E5F0A81BB3CC860053ABAA /* SJShareCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJShareCenter.m; sourceTree = "<group>"; };
+		33E5F0AB1BB3D57B0053ABAA /* SJWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWebView.h; sourceTree = "<group>"; };
+		33E5F0AC1BB3D57B0053ABAA /* SJWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWebView.m; sourceTree = "<group>"; };
+		33E5F0AD1BB3D57B0053ABAA /* SJWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWebViewController.h; sourceTree = "<group>"; };
+		33E5F0AE1BB3D57B0053ABAA /* SJWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWebViewController.m; sourceTree = "<group>"; };
+		33E5F0B11BB3D6190053ABAA /* UITableView+SJTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SJTableView.h"; sourceTree = "<group>"; };
+		33E5F0B21BB3D6190053ABAA /* UITableView+SJTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SJTableView.m"; sourceTree = "<group>"; };
 		33F2EDC41A88EA33000905E7 /* read_listen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read_listen@2x.png"; sourceTree = "<group>"; };
 		33F2EDC51A88EA33000905E7 /* read_msg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read_msg@2x.png"; sourceTree = "<group>"; };
 		33F2EDCB1A88EA9F000905E7 /* read_catelog@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read_catelog@2x.png"; sourceTree = "<group>"; };
@@ -650,6 +689,8 @@
 			children = (
 				3311EAC71A2317850040D79F /* SJBaseViewController.h */,
 				3311EAC81A2317850040D79F /* SJBaseViewController.m */,
+				33E5F0B11BB3D6190053ABAA /* UITableView+SJTableView.h */,
+				33E5F0B21BB3D6190053ABAA /* UITableView+SJTableView.m */,
 				04F890321B11776900DEA5F3 /* UITextField+SJTextField.h */,
 				04F890331B11776900DEA5F3 /* UITextField+SJTextField.m */,
 				04F8903A1B117B2900DEA5F3 /* SJTipCell.h */,
@@ -1196,12 +1237,15 @@
 				338D6C771BB001FB00E776DB /* 阅读设置页 */,
 				331C5E2A1AD40BFA00C68607 /* 封面页 */,
 				333515661BA27274001B7D0A /* 缓存器 */,
+				33E5F0911BB3CB320053ABAA /* 设置页 */,
 				33DD44541A30865200EB1626 /* SJHTTPRequestOperationManager.h */,
 				33DD44551A30865200EB1626 /* SJHTTPRequestOperationManager.m */,
 				336B8E921A2339AA00685FA3 /* SJURLRequestMethodDefined.h */,
 				333C5B311A3AD82100326EF8 /* SJBookURLRequest.h */,
 				339833CE1BB1865500B524B6 /* SJNativeAdsController.h */,
 				339833CF1BB1865500B524B6 /* SJNativeAdsController.m */,
+				33561D021BB4324300990515 /* SJAdsController.h */,
+				33561D031BB4324300990515 /* SJAdsController.m */,
 				333C5B321A3AD82100326EF8 /* SJBookURLRequest.m */,
 				33C2B4331A2316C900054135 /* SJAppDelegate.h */,
 				33C2B4341A2316C900054135 /* SJAppDelegate.m */,
@@ -1247,6 +1291,8 @@
 				33C5146D1A2318DC00D417FC /* SJIndexView.m */,
 				33E3E0031A860FB50086DCA8 /* SJBookCell.h */,
 				33E3E0041A860FB50086DCA8 /* SJBookCell.m */,
+				33E5F08E1BB3C2940053ABAA /* SJAdCell.h */,
+				33E5F08F1BB3C2940053ABAA /* SJAdCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1275,6 +1321,33 @@
 				33E3E0081A8618D20086DCA8 /* searchBtn@2x.png */,
 			);
 			path = "主页";
+			sourceTree = "<group>";
+		};
+		33E5F0911BB3CB320053ABAA /* 设置页 */ = {
+			isa = PBXGroup;
+			children = (
+				33E5F0AB1BB3D57B0053ABAA /* SJWebView.h */,
+				33E5F0AC1BB3D57B0053ABAA /* SJWebView.m */,
+				33E5F0AD1BB3D57B0053ABAA /* SJWebViewController.h */,
+				33E5F0AE1BB3D57B0053ABAA /* SJWebViewController.m */,
+				33E5F09B1BB3CBC40053ABAA /* SJRecommendAppCell.h */,
+				33E5F09C1BB3CBC40053ABAA /* SJRecommendAppCell.m */,
+				33E5F09D1BB3CBC40053ABAA /* SJRecommendApp.h */,
+				33E5F09E1BB3CBC40053ABAA /* SJRecommendApp.m */,
+				33E5F09F1BB3CBC40053ABAA /* SJRecommendAppURLRequest.h */,
+				33E5F0A01BB3CBC40053ABAA /* SJRecommendAppURLRequest.m */,
+				33E5F0A11BB3CBC40053ABAA /* SJRecommendAppService.h */,
+				33E5F0A21BB3CBC40053ABAA /* SJRecommendAppService.m */,
+				33E5F0951BB3CBA50053ABAA /* SJSettingCell.h */,
+				33E5F0961BB3CBA50053ABAA /* SJSettingCell.m */,
+				33E5F0971BB3CBA50053ABAA /* SJSettingView.h */,
+				33E5F0981BB3CBA50053ABAA /* SJSettingView.m */,
+				33E5F0921BB3CB9B0053ABAA /* SJSettingViewController.h */,
+				33E5F0931BB3CB9B0053ABAA /* SJSettingViewController.m */,
+				33E5F0A71BB3CC860053ABAA /* SJShareCenter.h */,
+				33E5F0A81BB3CC860053ABAA /* SJShareCenter.m */,
+			);
+			name = "设置页";
 			sourceTree = "<group>";
 		};
 		33F2EDC21A88EA33000905E7 /* 阅读页 */ = {
@@ -1509,12 +1582,14 @@
 				33D08FCE1BAD28CF007F0C40 /* SJSearchHitCell.m in Sources */,
 				338BCE491B9055D000374955 /* CDataScanner.m in Sources */,
 				338D6C7A1BB0023700E776DB /* SJSettingFontCell.m in Sources */,
+				33E5F0A31BB3CBC40053ABAA /* SJRecommendAppCell.m in Sources */,
 				338FF31B1A25822B00F36A6F /* NSString+SJString.m in Sources */,
 				338BCE501B9055D000374955 /* CJSONDeserializer.m in Sources */,
 				335D079F1BA2FA7000248710 /* SJReadingStatusBarView.m in Sources */,
 				04F890361B11776900DEA5F3 /* UITextField+SJTextField.m in Sources */,
 				33AFF1401A85E5B100DDB128 /* SJTabSwitchViewController.m in Sources */,
 				33C5146E1A2318DC00D417FC /* SJIndexView.m in Sources */,
+				33E5F0B01BB3D57B0053ABAA /* SJWebViewController.m in Sources */,
 				33DC6FE71ACAC40200A61281 /* SJRank.m in Sources */,
 				3383EF501A8A0CC800E35240 /* SJCatalogViewController.m in Sources */,
 				338D6C7D1BB002B400E776DB /* SJSettingBackgroundCell.m in Sources */,
@@ -1525,17 +1600,21 @@
 				33FA079E1A271DA6009E4F8F /* SJBookDetailView.m in Sources */,
 				336B8E7F1A231D6500685FA3 /* MessageInterceptor.m in Sources */,
 				338D6C731BAFEE3A00E776DB /* SJBookReadSettingViewController.m in Sources */,
+				33E5F0A41BB3CBC40053ABAA /* SJRecommendApp.m in Sources */,
 				338BCE481B9055D000374955 /* OpenUDID.m in Sources */,
 				336B8E951A2339E300685FA3 /* SJBookService.m in Sources */,
+				33E5F0A51BB3CBC40053ABAA /* SJRecommendAppURLRequest.m in Sources */,
 				336B8E8B1A232C2D00685FA3 /* SJRegex.m in Sources */,
 				338BCE4F1B9055D000374955 /* NSDictionary_JSONExtensions.m in Sources */,
 				338BCE4E1B9055D000374955 /* CDataScanner_Extensions.m in Sources */,
+				33E5F0991BB3CBA50053ABAA /* SJSettingCell.m in Sources */,
 				3395AFDF1A24AEE0009D31BF /* SJBookChapter.m in Sources */,
 				3311EAC91A2317850040D79F /* SJBaseViewController.m in Sources */,
 				336B8E981A233EDD00685FA3 /* SJFunction.m in Sources */,
 				33FA079B1A271D89009E4F8F /* SJBookDetailViewController.m in Sources */,
 				339833C41BB1526F00B524B6 /* SJSettingPreviewCell.m in Sources */,
 				045B40A71AC17E1700F10715 /* SJSearchBookViewController.m in Sources */,
+				33561D041BB4324300990515 /* SJAdsController.m in Sources */,
 				336B8E7E1A231D6500685FA3 /* LoadMoreTableFooterView.m in Sources */,
 				33DC6FE41ACAC21400A61281 /* SJRankDetailViewController.m in Sources */,
 				33C2B4311A2316C900054135 /* main.m in Sources */,
@@ -1560,10 +1639,12 @@
 				33E3E0131A861C6B0086DCA8 /* UIViewController+SJViewController.m in Sources */,
 				3311EAD41A23179F0040D79F /* UIColor+SJColor.m in Sources */,
 				330CEBA61A2DBAB600D69A2D /* SJSettingRecode.m in Sources */,
+				33E5F0A91BB3CC860053ABAA /* SJShareCenter.m in Sources */,
 				338BCE431B9055D000374955 /* AdMoGoAdapterBaiduMobAd.m in Sources */,
 				3335156C1BA27356001B7D0A /* SJBookCacheOperation.m in Sources */,
 				333C5B331A3AD82100326EF8 /* SJBookURLRequest.m in Sources */,
 				338BCE421B9055D000374955 /* AdMoGoAdapterBaiduFullAds.m in Sources */,
+				33E5F0901BB3C2940053ABAA /* SJAdCell.m in Sources */,
 				330CEBA41A2DBAB600D69A2D /* DataBaseIO.m in Sources */,
 				33013AFE1A88A64800BEE6AD /* SJBookReadingOperationView.m in Sources */,
 				33DD44561A30865200EB1626 /* SJHTTPRequestOperationManager.m in Sources */,
@@ -1575,7 +1656,9 @@
 				338BCE521B9055D000374955 /* CJSONSerializer.m in Sources */,
 				339833C91BB1646800B524B6 /* UIImage+SJImage.m in Sources */,
 				338BCE4A1B9055D000374955 /* CFilteringJSONSerializer.m in Sources */,
+				33E5F09A1BB3CBA50053ABAA /* SJSettingView.m in Sources */,
 				33C2B43B1A2316C900054135 /* SJIndexViewController.m in Sources */,
+				33E5F0AF1BB3D57B0053ABAA /* SJWebView.m in Sources */,
 				338BCE591B9055D000374955 /* AdMoGoAdapterAdwoFullAd.m in Sources */,
 				3383EF4D1A8A0A9A00E35240 /* SJCatalogView.m in Sources */,
 				336B8E911A23398F00685FA3 /* SJService.m in Sources */,
@@ -1588,10 +1671,13 @@
 				338BCE441B9055D000374955 /* AdMoGoAdapterBaiduSplash.m in Sources */,
 				338FF31A1A25822B00F36A6F /* NSDictionary+SJDictionary.m in Sources */,
 				33C2B4351A2316C900054135 /* SJAppDelegate.m in Sources */,
+				33E5F0B31BB3D6190053ABAA /* UITableView+SJTableView.m in Sources */,
+				33E5F0A61BB3CBC40053ABAA /* SJRecommendAppService.m in Sources */,
 				338BCE5B1B9055D000374955 /* AdsMogoAdapterAdwoVideoAd.m in Sources */,
 				3301F5481A306410008F29CF /* SJCell.m in Sources */,
 				336B8E8E1A23375F00685FA3 /* SJBook.m in Sources */,
 				33CF2E461A2EF90800B270BA /* NSArray+SJArray.m in Sources */,
+				33E5F0941BB3CB9B0053ABAA /* SJSettingViewController.m in Sources */,
 				338D6C801BB002D600E776DB /* SJSettingTextColorCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

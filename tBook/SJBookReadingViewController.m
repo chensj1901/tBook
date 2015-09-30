@@ -11,6 +11,8 @@
 #import "SJBookChapterReadRecode.h"
 #import <MMProgressHUD.h>
 #import "SJSettingRecode.h"
+#import "SJBookChapterReadRecode.h"
+
 
 @interface SJBookReadingViewController ()<UIGestureRecognizerDelegate>
 @end
@@ -165,6 +167,9 @@
     self.mainView.bookContentLabel.text=thisContent;
     self.mainView.operationView.blackOrDayModeSwitchBtn.selected=[[SJSettingRecode getSet:@"usingBlackMode"]boolValue];
     [self.mainView.readingStatusBarView refreshUI];
+    
+    
+    [SJBookChapterReadRecode insertBookChapter:self.bookChapter];
 }
 
 

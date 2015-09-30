@@ -69,6 +69,12 @@
     
     [self.bookService loadFirstBooksWithKeyWord:book.name success:^{
         SJBook *book=[self.bookService.searchResultBooks safeObjectAtIndex:0];
+        
+        if (!book) {
+            alert(@"暂未收录该书");
+            return;
+        }
+        
         SJBookDetailViewController *bookDetailVC=[[SJBookDetailViewController alloc]init];
         bookDetailVC.book=book;
         [self.navigationController pushViewController:bookDetailVC animated:YES];
