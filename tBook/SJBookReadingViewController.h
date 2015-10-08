@@ -35,4 +35,3 @@
 @property(nonatomic)SJBookReadingView *mainView;
 @property(nonatomic)NSString *readingText;
 @end
-
